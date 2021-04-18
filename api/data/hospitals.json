@@ -1,0 +1,24 @@
+[
+    {
+        "address": "169 Russell Plaza",
+        "city": "Turmi",
+        "postalCode": "12345",
+        "location": {
+            "coordinates": [
+                60,
+                50
+            ]
+        }
+    },
+    {
+        "address": "6 Pond Center",
+        "city": "San Francisco",
+        "postalCode": "46175",
+        "location": {
+            "coordinates": [
+                60,
+                50
+            ]
+        }
+    }
+]

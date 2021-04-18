@@ -1,0 +1,29 @@
+[
+    {
+        "status": "Aceptado",
+        "availability": true,
+        "docImage": "http://dummyimage.com/182x100.png/dddddd/000000",
+        "start": "04-21-2023 16:00:00",
+        "end": "08-21-2023 23:00:00",
+        "idHouse": "",
+        "idGuest": ""
+    },
+    {
+        "status": "Cancelado",
+        "availability": true,
+        "docImage": "http://dummyimage.com/250x100.png/dddddd/000000",
+        "start": "09-21-2023 16:00:00",
+        "end": "11-21-2023 23:00:00",
+        "idHouse": "",
+        "idGuest": ""
+    },
+    {
+        "status": "Pendiente de aceptacion",
+        "availability": false,
+        "docImage": "http://dummyimage.com/217x100.png/dddddd/000000",
+        "start": "10-21-2023 16:00:00",
+        "end": "12-21-2023 23:00:00",
+        "idHouse": "",
+        "idGuest": ""
+    }
+]

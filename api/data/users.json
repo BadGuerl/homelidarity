@@ -1,0 +1,16 @@
+[
+  {
+    "userState": true,
+    "name": "Silvia Guerola",
+    "email": "silvia@example.com",
+    "password": "12345678",
+    "avatar": "https://images.unsplash.com/photo-1614289371518-722f2615943d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZmlsZSUyMHBpY3R1cmV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+  },
+  {
+    "userState": true,
+    "name": "Rafa Gallardo",
+    "email": "rafag@example.es",
+    "password": "12345678",
+    "avatar": "https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzB8fHByb2ZpbGUlMjBwaWN0dXJlfGVufDB8fDB8&auto=format&fit=crop&w=500&q=60"
+  }
+]

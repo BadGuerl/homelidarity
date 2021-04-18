@@ -1,0 +1,62 @@
+[
+    {
+        "images": [
+            "https://images.unsplash.com/photo-1554995207-c18c203602cb?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+            "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8YmVkcm9vbXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+            "https://images.unsplash.com/photo-1612320583354-02dd0cf04612?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGtpZHMlMjByb29tfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+            "https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+            "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8YmF0aHJvb218ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+        ],
+        "description": "Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.",
+        "capacity": 1,
+        "enabled": false,
+        "sponsored": true,
+        "address": "Calle Mayor, 8",
+        "city": "Barcelona",
+        "postalCode": "28028",
+        "keyWords": [
+            "farmacia",
+            "metro",
+            "supermercado",
+            "escuela"
+        ],
+        "idHost": "606de312ee2f7217ccde69fa",
+        "location": {
+            "coordinates": [
+                100,
+                90
+            ]
+        },
+        "start": "04-21-2023 16:00:00",
+        "end": "04-21-2023 23:00:00"
+    },
+    {
+        "images": [
+            "https://images.unsplash.com/photo-1598546720078-8659863bc47d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8a2l0Y2hlbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+            "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+            "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8YmF0aHJvb218ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+            "https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NXx8YmVkcm9vbXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+            "https://images.unsplash.com/photo-1554861148-57c68cd01604?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzN8fGtpZHMlMjByb29tfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+        ],
+        "description": "Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.\n\nIn hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.",
+        "capacity": 2,
+        "enabled": true,
+        "sponsored": true,
+        "address": "de Gaudi, 57",
+        "city": "Barcelona",
+        "postalCode": "80080",
+        "keyWords": [
+            "farmacia",
+            "escuela"
+        ],
+        "idHost": "606de312ee2f7217ccde69fb",
+        "location": {
+            "coordinates": [
+                90,
+                80
+            ]
+        },
+        "start": "07-06-2023 16:00:00",
+        "end": "10-15-2023 23:00:00"
+    }
+]
