@@ -3,6 +3,7 @@ const passport = require('passport');
 const User = require('../models/user.model');
 const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const mongoose = require('mongoose');
 
 passport.serializeUser((user, next) => {
   next(null, user.id);
@@ -38,10 +39,12 @@ passport.use('local-auth', new LocalStrategy({
 passport.use('google-auth', new GoogleStrategy({
   clientID: process.env.G_CLIENT_ID,
   clientSecret: process.env.G_CLIENT_SECRET,
-  callbackURL: process.env.G_REDIRECT_URI || '/authenticate/google/cb',
+  callbackURL: process.env.G_REDIRECT_URI || '/api/authenticate/google/cb',
 }, (accessToken, refreshToken, profile, next) => {
-  // No necesitamos guardar el token de acceso de google xq no necesitamos pedir a google ninguna información adicional
-  // de los servicios del usuario que tenga en google.
+  console.log(accessToken);
+  console.log(refreshToken);
+  console.log(profile);
+
   const googleId = profile.id;
   const name = profile.displayName;
   const email = profile.emails[0] ? profile.emails[0].value : undefined;

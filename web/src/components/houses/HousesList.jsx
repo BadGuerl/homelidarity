@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import HouseItem from './HouseItem';
 import HousesFilter from './HousesFilter'
 
-import housesService from '../../../src/services/houses-service';
+import housesService from '../../services/houses-service';
 import { Fragment } from 'react';
 
 function HousesList({ minSearchChars }) {
@@ -45,7 +45,7 @@ function HousesList({ minSearchChars }) {
     const { houses, loading } = state;
 
     return (
-        <Fragment className="container">
+        <Fragment>
             <div className="row row-col-3">
                 <div className="col-3 ms-5 my-2">
                     <div className="card bg-light">

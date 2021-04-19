@@ -215,7 +215,7 @@ function HouseForm({ house: houseToEdit = {} }) {
 
     return (
         <div className="container col-5 my-5">
-            <div class="form-check form-switch ms-3 text-start text-secondary mt-3">
+            <div className="form-check form-switch ms-3 text-start text-secondary mt-3">
                 <h4><input
                     className="form-check-input"
                     type="checkbox"
@@ -325,7 +325,7 @@ function HouseForm({ house: houseToEdit = {} }) {
                         <h5 className="text-secondary ms-3 mt-4">Características</h5>
                     </div>
 
-                    <div class="form-check form-switch ms-3 text-start text-secondary mt-4">
+                    <div className="form-check form-switch ms-3 text-start text-secondary mt-4">
                         <input
                             className="form-check-input"
                             type="checkbox"
@@ -337,7 +337,7 @@ function HouseForm({ house: houseToEdit = {} }) {
                         <label className="form-check-label" for="flexSwitchCheckDefault">Adaptada a movilidad reducida</label>
                     </div>
 
-                    <div class="form-check form-switch ms-3 text-start text-secondary">
+                    <div className="form-check form-switch ms-3 text-start text-secondary">
                         <input
                             className="form-check-input"
                             type="checkbox"

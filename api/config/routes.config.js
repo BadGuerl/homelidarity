@@ -5,12 +5,14 @@ const passport = require('passport');
 const GOOGLE_SCOPES = ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'];
 
 const houses = require('../controllers/houses.controller');
-const booking = require('../controllers/bookings.controller');
+// const booking = require('../controllers/booking.controller');
 const users = require('../controllers/users.controller');
 
 
 router.get('/houses', houses.list);
 router.post('/login', users.login);
+router.get('/activate', users.activate);
+router.get('/register', users.register);
 router.post('/logout', secure.isAuthenticated, users.logout);
 
 router.post('/users', users.create);
@@ -23,23 +25,20 @@ router.post('/houses', secure.isAuthenticated, houses.create);
 router.put('/houses/:id', secure.isAuthenticated, houses.update);
 router.delete('/houses/:id', secure.isAuthenticated, houses.delete);
 
-router.post('/booking', secure.isAuthenticated, booking.create);
-router.put('/booking/:id', secure.isAuthenticated, booking.updateBooking);
+router.get('/authenticate/google', passport.authenticate('google-auth', { scope: GOOGLE_SCOPES }));
+// router.post('/logout/google/cd', passport.authenticate('google-auth', { scope: GOOGLE_SCOPES }))
+// router.get('/users', secure.isAuthenticated, secure.checkRole('admin'), usersController.list);
+
+// router.post('/booking', secure.isAuthenticated, booking.create);
+// router.put('/booking/:id', secure.isAuthenticated, booking.updateBooking);
 
 // router.get('/private', checkRoles('ADMIN'), (req, res) => {
 //     res.render('private', { user: req.user });
 // });
 
-router.get('/activate', users.activate);
-router.get('/register', users.register);
-// router.post('/register', users.doRegister);
-router.get('/authenticate/google', passport.authenticate('google-auth', { scope: GOOGLE_SCOPES }));
-// router.get('/authenticate/google/cb' users.loginWithGoogle);
-// router.get('/users', secure.isAuthenticated, secure.checkRole('admin'), usersController.list);
-
 //Borrar estas 2 lineas cuando churule el compass
 router.get('/users', users.list);
-router.get('/booking', booking.list);
+// router.get('/booking', booking.list);
 
 router.post('/totp', users.totp)
 

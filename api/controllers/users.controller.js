@@ -68,7 +68,7 @@ module.exports.login = (req, res, next) => {
 
 module.exports.register = (req, res, next) => {
     res.render('users/register');
-  };
+};
 
 module.exports.logout = (req, res, next) => {
     req.logout();
@@ -114,3 +114,23 @@ module.exports.activate = (req, res, next) => {
         }
     }).catch(next);
 };
+
+module.exports.loginWithGoogle = (req, res, next) => {
+    passport.authenticate('google-auth', (error, user, validations) => {
+        if (error) {
+            next(error);
+        } else if (user) {
+            req.login(user, error => {
+                if (error) next(error)
+                else res.redirect('/');
+            });
+        } else {
+            res.render('/users/login', { user: req.body, errors: validations });
+        }
+    })(req, res, next);
+}
+
+// module.exports.logoutWithGoogle = (req, res, next) => {
+//     req.logoutWithGoogle();
+//     res.status(204).end()
+// }

@@ -30,7 +30,7 @@ function Navbar() {
                                     <a className="nav-link text-secondary" href="/login">| Inicia sesión</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link text-secondary" href="/register" tabindex="-1" aria-disabled="true">|  Regístrate</a>
+                                    <a className="nav-link text-secondary" href="/register" tabIndex="-1" aria-disabled="true">|  Regístrate</a>
                                 </li>
                             </Fragment>
                         )}
