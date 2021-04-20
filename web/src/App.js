@@ -15,6 +15,7 @@ import PrivateRoute from './guards/PrivateRoute';
 import Error from './screens/Error';
 import EditHouse from './screens/EditHouse';
 import HousesList from './components/houses/HousesList';
+import UsersList from './components/users/UsersList';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/home" component={Home} />
+            <Route exact path="/users" component={UsersList} />
             <Route exact path="/houses" component={HousesList} />
             <Route exact path="/houses/:id" component={HouseDetail} />
             <PrivateRoute exact path="/create-house" component={HouseForm} />

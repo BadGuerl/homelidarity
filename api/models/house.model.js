@@ -49,7 +49,18 @@ const houseSchema = new Schema({
         type: String,
         required: 'El codigo postal es obligatorio'
     },
-    keyWords: [String], // como los hastags, pero en servicios cercanos
+    farmacia: {
+        type: Boolean
+    },
+    escuela: {
+        type: Boolean
+    },
+    metro: {
+        type: Boolean
+    },
+    supermercado: {
+        type: Boolean
+    },
     idHost: {
         ref: 'User',
         type: Schema.Types.ObjectId

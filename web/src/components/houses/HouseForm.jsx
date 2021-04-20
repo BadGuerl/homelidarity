@@ -37,6 +37,42 @@ const validations = {
         }
         return message;
     },
+    farmacia: (Boolean) => {
+        let message;
+        if (Boolean === true) {
+            message = 'Farmacia cercana a la vivienda';
+        } else if (Boolean === false) {
+            message = 'No hay farmacias cercanas';
+        }
+        return message;
+    },
+    supermercado: (Boolean) => {
+        let message;
+        if (Boolean === true) {
+            message = 'Supermercdo cercano a la vivienda';
+        } else if (Boolean === false) {
+            message = 'No hay supermercados cercanos';
+        }
+        return message;
+    },
+    metro: (Boolean) => {
+        let message;
+        if (Boolean === true) {
+            message = 'Metro cercano a la vivienda';
+        } else if (Boolean === false) {
+            message = 'No hay metro cercano a la vivienda';
+        }
+        return message;
+    },
+    escuela: (Boolean) => {
+        let message;
+        if (Boolean === true) {
+            message = 'Escuela cercana a la vivienda';
+        } else if (Boolean === false) {
+            message = 'No hay escuela cercana a la vivienda';
+        }
+        return message;
+    },
     sponsored: (Boolean) => {
         let message;
         if (Boolean === true) {
@@ -120,7 +156,10 @@ function HouseForm({ house: houseToEdit = {} }) {
             address: '',
             city: '',
             postalCode: '',
-            keyWords: '',
+            farmacia: '',
+            escuela: '',
+            metro: '',
+            supermercado: '',
             start: '',
             end: '',
             latitude: '',
@@ -132,6 +171,10 @@ function HouseForm({ house: houseToEdit = {} }) {
             description: validations.description(houseToEdit.description),
             capacity: validations.capacity(houseToEdit.capacity),
             enabled: validations.enabled(houseToEdit.enabled),
+            farmacia: validations.farmacia(houseToEdit.farmacia),
+            supermercado: validations.supermercado(houseToEdit.supermercado),
+            metro: validations.metro(houseToEdit.metro),
+            escuela: validations.escuela(houseToEdit.escuela),
             sponsored: validations.sponsored(houseToEdit.sponsored),
             address: validations.address(houseToEdit.address),
             city: validations.city(houseToEdit.city),
@@ -179,7 +222,6 @@ function HouseForm({ house: houseToEdit = {} }) {
             try {
                 const houseData = state.house;
                 houseData.location = [houseData.longitude, houseData.latitude];
-                houseData.keyWords = houseData.keyWords.split(',').map(keyWord => keyWord.trim()) || [];
                 const house = houseData.id ? await housesService.update(houseData) : await housesService.create(houseData);
                 history.push(`/houses/${house.id}`);
             } catch (error) {
@@ -362,7 +404,7 @@ function HouseForm({ house: houseToEdit = {} }) {
                                 className="form-check-input"
                                 type="checkbox"
                                 id="flexSwitchCheckDefault"
-                                value={house.keyWords.farmacia}
+                                value={house.farmacia}
                                 onBlur={handleBlur}
                                 onChange={handleChange}
                             />
@@ -373,7 +415,7 @@ function HouseForm({ house: houseToEdit = {} }) {
                                 className="form-check-input"
                                 type="checkbox"
                                 id="flexSwitchCheckDefault"
-                                value={house.keyWords.supermercado}
+                                value={house.supermercado}
                                 onBlur={handleBlur}
                                 onChange={handleChange}
                             />
@@ -384,7 +426,7 @@ function HouseForm({ house: houseToEdit = {} }) {
                                 className="form-check-input"
                                 type="checkbox"
                                 id="flexSwitchCheckDefault"
-                                value={house.keyWords.metro}
+                                value={house.metro}
                                 onBlur={handleBlur}
                                 onChange={handleChange}
                             />
@@ -395,7 +437,7 @@ function HouseForm({ house: houseToEdit = {} }) {
                                 className="form-check-input"
                                 type="checkbox"
                                 id="flexSwitchCheckDefault"
-                                value={house.keyWords.escuela}
+                                value={house.escuela}
                                 onBlur={handleBlur}
                                 onChange={handleChange}
                             />

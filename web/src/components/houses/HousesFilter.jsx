@@ -2,12 +2,21 @@ import { useState } from 'react';
 
 function HousesFilter({ className, onSearch, loading }) {
 
-  const [search, setSearch] = useState('');
-
-  const handleChange = (house) => {
-    const { value } = house.target;
-    setSearch(value);
-    onSearch(value);
+  const [search, setSearch] = useState({});
+  const handleCheckChange = (event) => {
+    setSearch({
+      ...search,
+      [event.target.name]: !search[event.target.name]
+    })
+  }
+  const handleInputChange = (event) => {
+    setSearch({
+      ...search,
+      [event.target.name]: event.target.value
+    })
+  }
+  const enviarSearch = () => {
+    onSearch(search);
   }
 
   return (
@@ -16,21 +25,21 @@ function HousesFilter({ className, onSearch, loading }) {
         <h5 className="text-secondary m-3">Buscar</h5>
 
         <div className="m-3">
-          <label htmlFor="end" className="form-label text-secondary">Fecha de salida</label>
-          <input type="datetime-local" className="form-control" id="end" />
+          <label htmlFor="end" className="form-label text-secondary">Fecha de entrada</label>
+          <input type="datetime-local" className="form-control" id="end" name="end" onChange={handleInputChange} />
         </div>
 
         <div className="m-3">
-          <input className="form-control" type="text" placeholder="Número de huespedes" aria-label="capacity" id="capacity" />
+          <input className="form-control" type="text" placeholder="Número de huespedes" onChange={handleInputChange} aria-label="capacity" id="capacity" name="capacity" />
         </div>
 
         <div className="form-check form-switch ms-3 text-start text-secondary mt-5">
-          <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
+          <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="enabled" onChange={handleCheckChange} />
           <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Adaptada a movilidad reducida</label>
         </div>
 
         <div className="form-check form-switch ms-3 text-start text-secondary">
-          <input className="form-check-input" type="checkbox" name="flexSwitchCheckDefault" id="flexSwitchCheckDefault" />
+          <input className="form-check-input" type="checkbox" name="pet" id="flexSwitchCheckDefault" onChange={handleCheckChange} />
           <label className="form-check-label" htmlFor="flexSwitchCheckDefault">
             Se admiten mascotas
           </label>
@@ -42,25 +51,28 @@ function HousesFilter({ className, onSearch, loading }) {
 
         <div className="ms-3 text-start text-secondary mb-3">
           <div className="form-check form-switch">
-            <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
+            <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="farmacia" onChange={handleCheckChange} />
             <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Farmacia</label>
           </div>
           <div className="form-check form-switch">
-            <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
+            <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="supermercado" onChange={handleCheckChange} />
             <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Supermercado</label>
           </div>
           <div className="form-check form-switch">
-            <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
+            <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="metro" onChange={handleCheckChange} />
             <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Metro</label>
           </div>
           <div className="form-check form-switch">
-            <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
+            <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="escuela" onChange={handleCheckChange} />
             <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Escuela</label>
           </div>
         </div>
 
         <div className="text-center mt-4 mb-3">
-          <button type="text" className="btn btn-secondary" value={search} onChange={handleChange}>
+          {/* <button type="text" className="btn btn-secondary" value={search} onChange={handleChange}>
+            Buscar
+          </button> */}
+          <button type="text" className="btn btn-secondary" onClick={enviarSearch}>
             Buscar
           </button>
         </div>

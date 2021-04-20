@@ -96,44 +96,77 @@ function RegisterForm() {
         //   ...state,
         //   errors: errors
         // }))
-        console.log("Error ",error)
+        console.log("Error ", error)
       }
-    } 
+    }
   }
 
-  const { user, errors /*touch */} = state;
+  const { user, errors /*touch */ } = state;
 
   return (
     <form className="mt-3 mb-3" onSubmit={handleSubmit}>
 
-      <h3 className="text-secondary m-5">Registrate o inicia sesión</h3>
-      
+      <h3 className="text-secondary m-5">Registrate</h3>
+
+      <div className="mb-3">
+        <label htmlFor="formFile" className="form-label"></label>
+        <input
+          className="form-control"
+          type="file"
+          id="formFile"
+          onBlur={handleBlur}
+          onChange={handleChange}
+          value={user.avatar}
+        />
+        <div className="invalid-feedback">{errors.avatar}</div>
+      </div>
+
       <div className="input-group mb-3">
         <span className="input-group-text"><i className="fa fa-user fa-fw"></i></span>
         {/* <input type="text" name="name" className={`form-control ${touch.name && errors.name ? 'is-invalid' : ''}`} */}
-        <input type="text" name="name" className={`form-control`}
-          placeholder="Nombre de usuario" onBlur={handleBlur} onChange={handleChange} value={user.name} />
+        <input
+          type="text"
+          name="name"
+          className={`form-control`}
+          placeholder="Nombre de usuario"
+          onBlur={handleBlur}
+          onChange={handleChange}
+          value={user.name}
+        />
         <div className="invalid-feedback">{errors.name}</div>
       </div>
 
       <div className="input-group mb-3">
         <span className="input-group-text"><i className="fa fa-envelope fa-fw"></i></span>
         {/* <input type="text" name="email" className={`form-control ${touch.email && errors.email ? 'is-invalid' : ''}`} */}
-        <input type="text" name="email" className={`form-control`}
-          placeholder="Email" onBlur={handleBlur} onChange={handleChange} value={user.email} />
+        <input
+          type="text"
+          name="email"
+          className={`form-control`}
+          placeholder="Email"
+          onBlur={handleBlur}
+          onChange={handleChange}
+          value={user.email}
+        />
         <div className="invalid-feedback">{errors.email}</div>
       </div>
 
       <div className="input-group mb-4">
         <span className="input-group-text"><i className="fa fa-lock fa-fw"></i></span>
         {/* <input type="password" name="password" className={`form-control ${touch.password && errors.password ? 'is-invalid' : ''}`} */}
-        <input type="password" name="password" className={`form-control`}
-          placeholder="Contraseña" onBlur={handleBlur} onChange={handleChange} value={user.password} />
+        <input
+          type="password"
+          name="password"
+          className={`form-control`}
+          placeholder="Contraseña"
+          onBlur={handleBlur}
+          onChange={handleChange}
+          value={user.password} />
         <div className="invalid-feedback">{errors.password}</div>
       </div>
 
       <div className="d-grid gap-2">
-        <button className="btn btn-primary mb-2" type="submit" disabled={!isValid()}>Regístrate</button>
+        <button className="btn btn-secondary mb-2" type="submit" disabled={!isValid()}>Regístrate</button>
       </div>
 
     </form>

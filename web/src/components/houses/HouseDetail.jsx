@@ -1,7 +1,7 @@
-import { useState, useEffect, Fragment, /*useContext*/ } from 'react';
+import { useState, useEffect, Fragment, useContext } from 'react';
 import { useParams, useHistory } from 'react-router';
-// import { Link } from 'react-router-dom';
-// import { AuthContext } from '../../contexts/AuthStore';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthStore';
 import moment from 'moment';
 // import HouseForm from './HouseForm';
 
@@ -11,7 +11,7 @@ function HouseDetail() {
 
   const params = useParams();
   const history = useHistory();
-  // const { user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [house, setHouse] = useState();
 
   useEffect(() => {
@@ -33,16 +33,16 @@ function HouseDetail() {
     }
   }, [history, params]);
 
-  // const handleDeleteHouse = async () => {
-  //   await housesService.remove(house.id);
-  //   history.push('/houses');
-  // }
+  const handleDeleteHouse = async () => {
+    await housesService.remove(house.id);
+    history.push('/houses');
+  }
 
   if (!house) {
     return null;
   }
 
-  const { images, description, capacity, pet, enabled, sponsored, address, city, keyWords,/* idHost, location, start,*/ end } = house;
+  const { images, description, capacity, pet, enabled, sponsored, address, city, idHost,/*  location, start,*/ end } = house;
   return (
     <Fragment>
       {/* <div className="col-3 ms-5 my-1">
@@ -81,14 +81,28 @@ function HouseDetail() {
                   </svg>{pet} Acepta mascotas</span>
               </div>
 
-              {keyWords && (
-                <div className="">
-                  {keyWords.map(keyWords => <span key={keyWords}>{<span className="badge rounded-pill bg-secondary me-2">{keyWords}</span>}</span>)}
-                </div>
-              )}
             </div>
           </div>
+
+          {user?.id === house.idHost && (
+            <div className="col my-3 text-center">
+              <div className="alert alert-secondary" role="alert">
+                <h4 className="fw-light mb-2">Admin Area</h4>
+                <div className="btn-group" role="group">
+                  <Link className="btn btn-secondary" to={`/houses/${idHost}/edit`}>Actualiza</Link>
+                  <button type="button" className="btn btn-danger" onClick={handleDeleteHouse}>Delete</button>
+                </div>
+              </div>
+            </div>
+          )}
+
           <a href="/" className="btn btn-secondary">Reservar</a>
+        </div>
+      </div>
+
+      <div>
+        <div>
+          <Link to="/houses" className="btn btn-secondary mt-4"><i className="fa fa-angle-left me-2"></i> Volver al listado</Link>
         </div>
       </div>
 
@@ -121,12 +135,8 @@ function HouseDetail() {
             </div>
           </div>
         </div>
-      )}
-      <div className="row">
-        <div className="col">
-          <Link to="/houses" className="fw-lighter"><i className="fa fa-angle-left"></i> Back to Houses</Link>
-        </div>
-      </div> */}
+      )} */}
+      
     </Fragment>
   );
 }

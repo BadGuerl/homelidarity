@@ -27,7 +27,7 @@ router.delete('/houses/:id', secure.isAuthenticated, houses.delete);
 
 router.get('/authenticate/google', passport.authenticate('google-auth', { scope: GOOGLE_SCOPES }));
 // router.post('/logout/google/cd', passport.authenticate('google-auth', { scope: GOOGLE_SCOPES }))
-// router.get('/users', secure.isAuthenticated, secure.checkRole('admin'), usersController.list);
+router.get('/users', secure.isAuthenticated, secure.checkRole('admin'), users.list);
 
 // router.post('/booking', secure.isAuthenticated, booking.create);
 // router.put('/booking/:id', secure.isAuthenticated, booking.updateBooking);

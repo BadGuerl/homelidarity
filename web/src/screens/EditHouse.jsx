@@ -28,7 +28,6 @@ function EditHouse() {
           house.start = moment(house.start).format('yyyy-MM-DDThh:mm');
           house.end = moment(house.end).format('yyyy-MM-DDThh:mm');
           delete house.location;
-          house.keyWords = house.keyWords.join(',');
           setHouse(house);
         }
       }

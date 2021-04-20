@@ -11,7 +11,7 @@ function HousesList({ minSearchChars }) {
         houses: [],
         loading: false
     });
-    const [search, setSearch] = useState('');
+    const [search, setSearch] = useState({});
 
     useEffect(() => {
         async function fetchHouses() {
@@ -28,19 +28,32 @@ function HousesList({ minSearchChars }) {
                 })
             }
         }
-
+       
         let isUnmounted = false;
 
-        if (search.length >= minSearchChars || search.length === 0) {
-            fetchHouses();
-        }
+        // if (search.length >= minSearchChars || search.length === 0) {
+        //     fetchHouses();
+        //     console.log("HOLA");
+        // }
+        
+        fetchHouses();
+         
 
         return () => {
             isUnmounted = true;
         }
     }, [search, minSearchChars]);
 
-    const handleSearch = search => setSearch(search);
+    const handleSearch = search => {
+        //Aqui habria que hacer comprobaciones. Si se pasa capacity en blanco, o es un texto, etc.
+        //Que hacemos con los keywords? Se mantienen? Lo cerramos como valores booleanos en mongo? Si se cambia habra que modificar el model
+        
+        //Comprobacion que capacity sea un numero
+        if(Number.isNaN(parseInt(search.capacity))){
+            delete search.capacity;
+        }
+        setSearch(search);
+    }
 
     const { houses, loading } = state;
 

@@ -130,7 +130,8 @@ module.exports.loginWithGoogle = (req, res, next) => {
     })(req, res, next);
 }
 
-// module.exports.logoutWithGoogle = (req, res, next) => {
-//     req.logoutWithGoogle();
-//     res.status(204).end()
-// }
+module.exports.list = (req, res, next) => {
+    User.find()
+        .then(users => res.render('users/list', { users }))
+        .catch(next)
+}

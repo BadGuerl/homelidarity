@@ -2,16 +2,8 @@ const createError = require('http-errors');
 const House = require('../models/house.model');
 
 module.exports.list = (req, res, next) => {
-    const criteria = {}
-    const { keyWords, search } = req.query;
 
-    if (keyWords) {
-        criteria.keyWords = keyWords
-    }
-    if (search) {
-        criteria.idHost = new RegExp(search, 'i');
-    }
-
+    const criteria = req.query;
     House.find(criteria)
         .populate('idHost', '_id name email')
         .then(houses => res.json(houses))
@@ -50,7 +42,12 @@ module.exports.create = (req, res, next) => {
 }
 
 module.exports.delete = (req, res, next) => {
-    House.findByIdAndDelete(req.params.id)
+    const criterial = { _id: req.params.id}
+    if (req.user.role !== 'admin') {
+        criterial.user = req.user.id;
+    }
+
+    House.findByIdAndDelete(criterial)
         .then(house => {
             if (!house) next(createError(404, 'House not found'))
             else if (house.host != req.user.id) next(createError(403, 'Only the owner of the house can perform this action'))

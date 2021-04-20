@@ -50,25 +50,37 @@ function LoginForm() {
   return (
     <form className="mt-3 mb-3" onSubmit={handleSubmit}>
 
-      <h3 className="text-secondary m-5">Inicia sesión o regístrate</h3>
+      <h3 className="text-secondary m-5">Inicia sesión</h3>
 
       <div className="input-group mb-3">
         <span className="input-group-text"><i className="fa fa-envelope fa-fw"></i></span>
-        <input type="email" name="email" className={`form-control ${errors.email ? 'is-invalid' : ''}`}
-          required placeholder="usuario@ejemplo.org" onChange={handleChange} value={user.email} />
+        <input
+          type="email"
+          name="email"
+          className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+          required
+          placeholder="usuario@ejemplo.org"
+          onChange={handleChange}
+          value={user.email} />
         <div className="invalid-feedback">{errors.email}</div>
       </div>
 
       <div className="input-group mb-3">
         <span className="input-group-text"><i className="fa fa-lock fa-fw"></i></span>
-        <input type="password" name="password" className="form-control"
-          required placeholder="Contraseña" onChange={handleChange} value={user.password} />
+        <input
+          type="password"
+          name="password"
+          className="form-control"
+          required
+          placeholder="Contraseña"
+          onChange={handleChange}
+          value={user.password} />
       </div>
 
       <div className="d-grid gap-2">
-        <button className="btn btn-primary mb-2" type="submit" >Inicia sesión</button>
+        <button className="btn btn-secondary mb-2" type="submit" >Inicia sesión</button>
       </div>
-      
+
     </form>
   );
 }

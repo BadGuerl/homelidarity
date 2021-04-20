@@ -5,6 +5,10 @@ const EMAIL_PATTERN = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"
 const PASSWORD_PATTERN = /^.{8,}$/;
 const bcrypt = require('bcrypt');
 
+const superAdmins = process.env.ADMIN_EMAILS
+    // .split(',')
+    // .map(admin => admin.trim())
+
 const userSchema = new Schema({
     userState: {
         type: Boolean,
@@ -12,8 +16,9 @@ const userSchema = new Schema({
     },
     role: {
         type: String,
-        enum: ['GUEST', 'EDITOR', 'ADMIN'],
-        default: 'GUEST',
+        enum: ['guest', 'editor', 'admin'],
+        required: 'Rol de usuario requerido',
+        default: 'guest',
     },
     name: {
         unique: true,
@@ -88,6 +93,11 @@ const userSchema = new Schema({
 })
 
 userSchema.pre('save', function (next) {
+
+    // if (superAdmins.includes(this.email)) {
+    //     this.role = 'admin';
+    // }
+
     if (this.isModified('password')) {
         bcrypt.hash(this.password, 10).then((hash) => {
             this.password = hash;
@@ -102,9 +112,9 @@ userSchema.methods.checkPassword = function (passwordToCheck) {
     return bcrypt.compare(passwordToCheck, this.password);
 };
 
-// userSchema.methods.getTOTPQR = function () {
-//     return `otpauth://totp/Iron%20Events:${this.email}?secret=${this.totpSecret}&issuer=Iron%20Events`
-// };
+userSchema.methods.getTOTPQR = function () {
+    return `otpauth://totp/Iron%20Events:${this.email}?secret=${this.totpSecret}&issuer=Iron%20Events`
+};
 
 userSchema.methods.checkTOTP = function (code) {
     return totp(this.totpSecret)

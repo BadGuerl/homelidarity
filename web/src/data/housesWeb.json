@@ -11,15 +11,10 @@
         "capacity": 1,
         "enabled": false,
         "sponsored": true,
+        "pet": true,
         "address": "Calle Mayor, 8",
         "city": "Barcelona",
         "postalCode": "28028",
-        "keyWords": [
-            "farmacia",
-            "metro",
-            "supermercado",
-            "escuela"
-        ],
         "idHost": "606de312ee2f7217ccde69fa",
         "location": {
             "coordinates": [
@@ -42,13 +37,10 @@
         "capacity": 2,
         "enabled": true,
         "sponsored": true,
+        "pet": false,
         "address": "de Gaudi, 57",
         "city": "Barcelona",
         "postalCode": "80080",
-        "keyWords": [
-            "farmacia",
-            "escuela"
-        ],
         "idHost": "606de312ee2f7217ccde69fb",
         "location": {
             "coordinates": [

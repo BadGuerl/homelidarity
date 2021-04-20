@@ -7,7 +7,7 @@ import { AuthContext } from '../../contexts/AuthStore';
 function Navbar() {
     const { user, isAuthenticated, onUserChange } = useContext(AuthContext);
     const history = useHistory();
-
+    console.log(user);
     async function handleLogout() {
         await logout();
         onUserChange(undefined);
@@ -22,6 +22,11 @@ function Navbar() {
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
+                <ul className="navbar-nav mr-auto">
+
+                    {/* <li class="nav-item {{active ../path '/users'}}"><a class="nav-link" href="/users">Users</a></li> */}
+
+                </ul>
                 <div className="mx-5" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         {!isAuthenticated() && (
@@ -38,7 +43,14 @@ function Navbar() {
                             <Fragment>
                                 <li className="nav-item"><Link className="nav-link text-secondary me-5" to="/create-house">¿Tienes una vivienda solidaria?</Link></li>
                                 <li className="nav-item"><NavLink className="nav-link text-secondary" activeClassName="active" to="/profile">Bienvenido/a {user.name}</NavLink></li>
+                                <li>
+                                    <div className="inline-block" style={{width:"40px",height:"40px",backgroundImage:`url(${user.avatar})`,borderRadius:"100px",backgroundSize:"cover",backgroundPosition:"center"}}>
+
+                                    </div>
+                                    {/* <img src={user.avatar} alt="avatar" style={{width:"40px",borderRadius:"100"}} /> */}
+                                </li>
                                 <li className="nav-item"><button type="submit" className="btn btn-link link-unstyled text-secondary" onClick={handleLogout}><i className="fa fa-sign-out" ></i></button></li>
+
                             </Fragment>
                         )}
                     </ul>

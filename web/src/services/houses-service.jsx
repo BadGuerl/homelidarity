@@ -1,6 +1,6 @@
 import http from './base-api-service';
 
-const list = (search) => http.get('/houses', { params: { search } })
+const list = (search) => http.get('/houses', { params:  search  })
 
 const get = (id) => http.get(`/houses/${id}`)
 
