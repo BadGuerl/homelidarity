@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, /*useContext*/ } from "react";
 // import { useHistory } from "react-router";
-// import { login } from "../../services/users-service";
+// import usersService from "../../services/users-service";
 // import { AuthContext } from '../../contexts/AuthStore';
 
 function UsersList() {
@@ -9,6 +9,7 @@ function UsersList() {
 
   const [state] = useState({
     user: {
+      avatar: '',
       name: '',
       email: '',
       role: ''
@@ -39,6 +40,7 @@ function UsersList() {
               <th scope="col">Nombre</th>
               <th scope="col">Email</th>
               <th scope="col">Rol</th>
+              <th scope="col">Avatar</th>
             </tr>
           </thead>
           <tbody>
@@ -49,6 +51,7 @@ function UsersList() {
                   <td>{user.name}</td>
                   <td>{user.email}</td>
                   <td>{user.role}</td>
+                  <td>{user.avatar}</td>
                 </div>
               ))}
             </tr>

@@ -40,16 +40,15 @@ function Navbar() {
                             </Fragment>
                         )}
                         {isAuthenticated() && (
-                            <Fragment>
-                                <li className="nav-item"><Link className="nav-link text-secondary me-5" to="/create-house">¿Tienes una vivienda solidaria?</Link></li>
-                                <li className="nav-item"><NavLink className="nav-link text-secondary" activeClassName="active" to="/profile">Bienvenido/a {user.name}</NavLink></li>
-                                <li>
-                                    <div className="inline-block" style={{width:"40px",height:"40px",backgroundImage:`url(${user.avatar})`,borderRadius:"100px",backgroundSize:"cover",backgroundPosition:"center"}}>
+                            <Fragment>                                <li className="nav-item"><NavLink className={`nav-link text-secondary ${user.role === "admin" ? "text-danger" : 'd-none'} `} activeClassName="active" to="/usersList">Zona admin</NavLink></li>
 
+                                <li className="nav-item"><Link className="nav-link text-secondary me-5" to="/create-house">¿Tienes una vivienda solidaria?</Link></li>
+                                <li className="nav-item"><NavLink className={`nav-link text-secondary ${user.role === "admin" ? "text-danger" : ''} `} activeClassName="active" to="/profile">Bienvenido/a {user.name}</NavLink></li>
+                                <li>
+                                    <div className="inline-block" style={{ width: "40px", height: "40px", backgroundImage: `url(${user.avatar})`, borderRadius: "100px", backgroundSize: "cover", backgroundPosition: "center" }}>
                                     </div>
-                                    {/* <img src={user.avatar} alt="avatar" style={{width:"40px",borderRadius:"100"}} /> */}
                                 </li>
-                                <li className="nav-item"><button type="submit" className="btn btn-link link-unstyled text-secondary" onClick={handleLogout}><i className="fa fa-sign-out" ></i></button></li>
+                                <li className="nav-item"><button type="submit" className="btn btn-link link-unstyled text-secondary" onClick={handleLogout}><h3><i className="fa fa-sign-out ms-2" ></i></h3></button></li>
 
                             </Fragment>
                         )}

@@ -7,9 +7,9 @@ require('../models/house.model');
 const bookingSchema = new Schema({
   status: {
     type: String,
-    default: 'Pendiente de aceptacion'
+    enum: ['Pendiente', 'Aceptado', 'Cancelado', 'Finalizado']
   },
-  availability: {
+  available: {
     type: Boolean
   },
   docImage: {
@@ -49,9 +49,9 @@ const bookingSchema = new Schema({
     type: Date,
     validate: {
       validator: function (value) {
-        return moment(value).isAfter(moment(this.start)) || moment(value).isSame(moment(this.start))
+        return moment(value).isAfter(moment(this.start))
       },
-      message: props => `La fecha de salida no puede ser anterior a la actual`
+      message: props => `La fecha de salida no puede ser anterior a la de entrada`
     }
   },
 },

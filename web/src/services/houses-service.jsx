@@ -4,7 +4,15 @@ const list = (search) => http.get('/houses', { params:  search  })
 
 const get = (id) => http.get(`/houses/${id}`)
 
-const create = (house) => http.post(`/houses`, house)
+const create = (house) => {
+  const data = new FormData()
+
+  Object.keys(house).forEach(key => {
+    data.append(key, house[key])
+  })
+  
+  http.post(`/houses`, house)
+}
 
 const remove = (id) => http.delete(`/houses/${id}`)
 

@@ -15,7 +15,7 @@ module.exports.list = (req, res, next) => {
 module.exports.create = (req, res, next) => {
     House.findById(req.body.idHouse)
         .then(house => {
-            // console.log(req.user.balance);
+
             // console.log(house.docImage);
             if (house) {
 
@@ -25,17 +25,17 @@ module.exports.create = (req, res, next) => {
                         .catch(error => {
                             next(error);
                         })
-                    // return booking.create({
-                    //     status: 'Pendiente de aprobacion',
-                    //     house: user.idHouse,
-                    //     guest: user.idGuest
-                    // })
-                    //     .then(booking => {
-                    //         if (booking) {
-                    //             res.redirect('/houses')
-                    //         }
-                    //     })
-                    //     .catch(createError(403, 'No se ha podido crear el la reserva'))
+                    return booking.create({
+                        status: 'Pendiente',
+                        house: user.idHouse,
+                        guest: user.idGuest
+                    })
+                        .then(booking => {
+                            if (booking) {
+                                res.redirect('/houses')
+                            }
+                        })
+                        .catch(createError(403, 'No se ha podido crear el la reserva'))
                 } else {
                     next(createError(403, 'No existe ningun documento acreditativo'))
                 }
@@ -61,7 +61,7 @@ module.exports.updateBooking = (req, res, next) => {
 
 module.exports.acceptBooking = (req, res, next) => {
     const bookingId = req.params.id;
-    req.body.status = 'Reserva aceptada';
+    req.body.status = 'Aceptado';
     Booking.findByIdAndUpdate(bookingId, { $set: req.body }, { runValidators: true })
         .then((booking) => {
             if (booking) {
@@ -86,7 +86,7 @@ module.exports.acceptBooking = (req, res, next) => {
 
 module.exports.cancelBooking = (req, res, next) => {
     const bookingId = req.params.id;
-    req.body.status = 'Reserva cancelada';
+    req.body.status = 'Cancelada';
     Booking.findByIdAndUpdate(bookingId, { $set: req.body }, { runValidators: true })
         .then((booking) => {
             if (booking) {

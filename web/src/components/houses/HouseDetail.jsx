@@ -3,16 +3,33 @@ import { useParams, useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthStore';
 import moment from 'moment';
-// import HouseForm from './HouseForm';
 
 import housesService from '../../services/houses-service';
+
+const validations = {
+  docImage: (value) => {
+    let message;
+    if (!value) {
+      message = 'El documento es requerido';
+    }
+    return message;
+  }
+}
 
 function HouseDetail() {
 
   const params = useParams();
   const history = useHistory();
   const { user } = useContext(AuthContext);
-  const [house, setHouse] = useState();
+  const [house, setState] = useState({
+    booking: {
+      docImage: ''
+    },
+    errors: {
+      docImage: validations.docImage()
+    },
+    touch: {}
+  });
 
   useEffect(() => {
     async function fetchHouse() {
@@ -20,7 +37,7 @@ function HouseDetail() {
       console.info(`Buscando casa ${id}...`)
       const house = await housesService.get(id)
       if (!isUnmounted) {
-        setHouse(house);
+        setState(house);
       }
     }
 
@@ -38,105 +55,153 @@ function HouseDetail() {
     history.push('/houses');
   }
 
+  const handleClick = () => {
+
+  }
+
   if (!house) {
     return null;
   }
 
-  const { images, description, capacity, pet, enabled, sponsored, address, city, idHost,/*  location, start,*/ end } = house;
+  // const isValid = () => {
+  //   const { errors } = state;
+  //   return !Object.keys(errors).some(error => errors[error]);
+  // }
+
+  const handleBlur = (event) => {
+    const { name } = event.target;
+    setState(state => ({
+      ...state,
+      touch: {
+        ...state.touch,
+        [name]: true
+      }
+    }));
+  }
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setState(state => ({
+      ...state,
+      user: {
+        ...state.user,
+        [name]: value
+      },
+      errors: {
+        ...state.errors,
+        [name]: validations[name] && validations[name](value)
+      }
+    }));
+  }
+
+  const { images, description, capacity, pet, enabled, sponsored, address, city, idHost, end, farmacia, supermercado, escuela, metro } = house;
   return (
     <Fragment>
-      {/* <div className="col-3 ms-5 my-1">
-        <div className="card bg-light">
-          <HouseForm className="mb-3" />
-        </div>
-      </div> */}
 
-      <div className="container col-5 bg-light p-1 rounded">
-        <img src={images} className="card-img-top w-75" alt="images" />
-        <div className="card-body">
-          <div className="text-start">
-            <div className="card-body ">
-              <h5 className="card-title text-warning">{sponsored}</h5>
+      <div className="row row-col-3 justify-content-center">
+        {/* <div className="col-4 mx-5 my-2 d-flex align-items-center">
+          <div className="card bg-light p-4 border-danger">
+            <label className="mt-3 text-danger"><h3>¡Importante!</h3></label>
+            <label htmlFor="formFile" className="form-label my-4 text-secondary"><h4>Para reservar la vivienda,<br />
+            registre el documento que acredita la hospitalización.</h4></label>
+            <input
+              className="form-control mb-3"
+              type="file"
+              id="formFile"
+              onBlur={handleBlur}
+              onChange={handleChange}
+            />
 
-              <p className="card-text"><small className="text-danger">Libre a partir del:
+          </div>
+        </div> */}
+
+        <div className="col-4 my-2 bg-light text-secondary border rounded">
+          <div className="ratio ratio-4x3">
+            <img src={images} alt="images" className="image-fluid rounded" />
+            {
+              sponsored && (
+                <div className="sponsored p-1">Vivienda patrocinada</div>
+              )
+            }
+          </div>
+
+          <div className="card-body">
+            <div className="text-start">
+              <div className="card-body">
+
+                <p className="card-text"><small className="text-danger">Libre a partir del:
                         <i className=""></i> {moment(end).format('llll')}</small></p>
 
-              <p className="card-text">{description}</p>
-              <p className="card-text">Dirección: {address}. {city}</p>
+                <p className="card-text">{description}</p>
+                <p className="card-text">Dirección: {address}. {city}</p>
 
-              <div className="d-flex flex-row mb-2">
-                <span className="badge rounded-pill border border-secondary text-secondary me-2 p-2">
-                  <i className="fa fa-users me-1"></i>{capacity}</span>
-                <span className="badge rounded-pill border border-secondary text-secondary me-2 p-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-check2-all" viewBox="0 0 16 16">
-                    <path d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l7-7zm-4.208 
-                                    7-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0z" />
-                    <path d="m5.354 7.146.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708z" />
-                  </svg>{enabled} Adaptada</span>
-                <span className="badge rounded-pill border border-secondary text-secondary me-2 p-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-check2-all" viewBox="0 0 16 16">
-                    <path d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l7-7zm-4.208 
-                                    7-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0z" />
-                    <path d="m5.354 7.146.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708z" />
-                  </svg>{pet} Acepta mascotas</span>
+                <div className="d-flex flex-row mb-2">
+                  <span className="badge rounded-pill border border-secondary text-secondary me-2 p-2">
+                    <i className="fa fa-users me-1"></i>{capacity}</span>
+
+                  {
+                    enabled && (
+                      <span className="badge rounded-pill border border-secondary text-secondary  me-1">
+                        Adaptada</span>
+                    )
+                  }
+
+                  {
+                    pet && (
+                      <span className="badge rounded-pill border border-secondary text-secondary me-1">
+                        Mascotas</span>
+                    )
+                  }
+                </div>
+                {
+                  farmacia && (
+                    <span className="badge rounded-pill border border-secondary text-white bg-secondary me-1">
+                      farmacia</span>
+                  )
+                }
+
+                {
+                  metro && (
+                    <span className="badge rounded-pill border border-secondary text-white bg-secondary me-1">
+                      metro</span>
+                  )
+                }
+
+                {
+                  escuela && (
+                    <span className="badge rounded-pill border border-secondary text-white bg-secondary me-1">
+                      escuela</span>
+                  )
+                }
+
+                {
+                  supermercado && (
+                    <span className="badge rounded-pill border border-secondary text-white bg-secondary me-1 mt-2">
+                      supermercado</span>
+                  )
+                }
+
               </div>
-
             </div>
-          </div>
 
-          {user?.id === house.idHost && (
-            <div className="col my-3 text-center">
-              <div className="alert alert-secondary" role="alert">
-                <h4 className="fw-light mb-2">Admin Area</h4>
-                <div className="btn-group" role="group">
-                  <Link className="btn btn-secondary" to={`/houses/${idHost}/edit`}>Actualiza</Link>
-                  <button type="button" className="btn btn-danger" onClick={handleDeleteHouse}>Delete</button>
+            {user?.id === house.idHost && (
+              <div className="col my-3 text-center">
+                <div className="alert alert-secondary" role="alert">
+                  <h4 className="fw-light mb-2">Admin Area</h4>
+                  <div className="btn-group" role="group">
+                    <Link className="btn btn-secondary" to={`/houses/${idHost}/edit`}>Actualiza</Link>
+                    <button type="button" className="btn btn-danger" onClick={handleDeleteHouse}>Delete</button>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
 
-          <a href="/" className="btn btn-secondary">Reservar</a>
-        </div>
-      </div>
-
-      <div>
-        <div>
-          <Link to="/houses" className="btn btn-secondary mt-4"><i className="fa fa-angle-left me-2"></i> Volver al listado</Link>
-        </div>
-      </div>
-
-      {/* <div className="row row-cols-1 mb-4">
-        <div className="col text-center">
-          <img src={images} alt={title} className="img-fluid" />
-        </div>
-        <div className="col">
-          <h1 className="mt-4 mb-2">{sponsored}</h1>
-          <div className="d-flex flex-row mb-2">
-            <span className="badge rounded-pill bg-info me-2 p-2"><i className="fa fa-users me-1"></i>0 / {capacity}</span>
-            <span className="badge rounded-pill bg-danger me-2 p-2"><i className="fa fa-clock-o me-1"></i>{moment(start).format('llll')} to {moment(end).format('llll')}</span>
-          </div>
-          <div className="text-muted fst-italic fw-light mb-2">By {sponsored}</div>
-          {description.split('\n').map((p, i) => <p key={i}>{p}</p>)}
-        </div>
-        {tags && (
-          <div className="col">
-            {tags.map(tag => <span key={tag}>{<span className="badge rounded-pill bg-secondary me-2">{tag}</span>}</span>)}
-          </div>
-        )}
-      </div>
-      {user?.id === house.idHouse && (
-        <div className="col my-3 text-center">
-          <div className="alert alert-secondary" role="alert">
-            <h4 className="fw-light mb-2">Admin Area</h4>
-            <div className="btn-group" role="group">
-              <Link className="btn btn-secondary" to={`/houses/${house.id}/edit`}>Update</Link>
-              <button type="button" className="btn btn-danger" onClick={handleDeleteHouse}>Delete</button>
-            </div>
           </div>
         </div>
-      )} */}
-      
+
+      </div>
+      <a href="/" className="btn btn-secondary mt-3" onClick={handleClick} type="submit" disabled/*={!isValid()} */ >Reservar</a>
+
     </Fragment>
   );
 }

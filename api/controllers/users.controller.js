@@ -6,19 +6,29 @@ const mailer = require('../config/mailer.config');
 
 /* Borrar esto cuando churule el compass */
 module.exports.list = (req, res, next) => {
-    User.find()
+    User.find({userState:true})
         .then(users => res.json(users))
         .catch(next)
 }
 /* hasta aqui */
 
 module.exports.get = (req, res, next) => {
+    // Esto es del login social
+    if (req.params.id === 'me') {
+        return res.json(req.user)
+    }
+    
     User.findById(req.params.id)
         .then(user => res.status(200).json(user))
         .catch(next)
 }
 
 module.exports.create = (req, res, next) => {
+
+    if (req.file) {
+        req.body.image = req.file.url
+    }
+
     User.findOne({ email: req.body.email })
         .then(user => {
             if (user) {
@@ -45,6 +55,10 @@ module.exports.delete = (req, res, next) => {
 
 module.exports.update = (req, res, next) => {
     const { id } = req.params;
+
+    if (req.file) {
+        req.body.image = req.file.url
+    }
 
     User.findByIdAndUpdate(id, req.body, { new: false })
         .then(user => res.status(202).json(user))
@@ -116,22 +130,17 @@ module.exports.activate = (req, res, next) => {
 };
 
 module.exports.loginWithGoogle = (req, res, next) => {
-    passport.authenticate('google-auth', (error, user, validations) => {
+    const passportController = passport.authenticate('google-auth', (error, user, validations) => {
         if (error) {
             next(error);
-        } else if (user) {
+        } else {
             req.login(user, error => {
                 if (error) next(error)
-                else res.redirect('/');
-            });
-        } else {
-            res.render('/users/login', { user: req.body, errors: validations });
-        }
-    })(req, res, next);
-}
 
-module.exports.list = (req, res, next) => {
-    User.find()
-        .then(users => res.render('users/list', { users }))
-        .catch(next)
+                else res.redirect(`${process.env.WEB_URL}/authenticate/google/cb`)
+            })
+        }
+    })
+
+    passportController(req, res, next);
 }

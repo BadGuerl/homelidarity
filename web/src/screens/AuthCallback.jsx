@@ -26,4 +26,4 @@ function AuthCallback() {
   return null
 }
 
-export default AuthCallback
+export default AuthCallback;

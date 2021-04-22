@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const moment = require('moment');
+// const moment = require('moment');
 const Schema = mongoose.Schema;
-const User = require('./user.model');
+// const User = require('./user.model');
 
 require('../models/user.model')
 
@@ -82,26 +82,26 @@ const houseSchema = new Schema({
                 message: props => `Ubicacion no valida`
             }
         }
-    },
-    start: {
-        type: Date,
-        required: 'La fecha de entrada es requerida',
-        validate: {
-            validator: function (value) {
-                return moment().isBefore(moment(value))
-            },
-            message: props => `La entrada no puede ser posterior a la fecha actual`
-        }
-    },
-    end: {
-        type: Date,
-        validate: {
-            validator: function (value) {
-                return moment(value).isAfter(moment(this.start)) || moment(value).isSame(moment(this.start))
-            },
-            message: props => `La salida no puede ser anterior a la fecha de entrada`
-        }
     }
+    // start: {
+    //     type: Date,
+    //     required: 'La fecha de entrada es requerida',
+    //     validate: {
+    //         validator: function (value) {
+    //             return moment().isBefore(moment(value))
+    //         },
+    //         message: props => `La entrada no puede ser posterior a la fecha actual`
+    //     }
+    // },
+    // end: {
+    //     type: Date,
+    //     validate: {
+    //         validator: function (value) {
+    //             return moment(value).isAfter(moment(this.start)) || moment(value).isSame(moment(this.start))
+    //         },
+    //         message: props => `La salida no puede ser anterior a la fecha de entrada`
+    //     }
+    // }
 }, {
     timestamps: true,
     toJSON: {

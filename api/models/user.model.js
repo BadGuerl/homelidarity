@@ -6,13 +6,16 @@ const PASSWORD_PATTERN = /^.{8,}$/;
 const bcrypt = require('bcrypt');
 
 const superAdmins = process.env.ADMIN_EMAILS
-    // .split(',')
-    // .map(admin => admin.trim())
+    .split(',')
+    .map(admin => admin.trim())
 
 const userSchema = new Schema({
     userState: {
         type: Boolean,
         default: true
+    },
+    social: {
+        google: String
     },
     role: {
         type: String,
@@ -94,9 +97,9 @@ const userSchema = new Schema({
 
 userSchema.pre('save', function (next) {
 
-    // if (superAdmins.includes(this.email)) {
-    //     this.role = 'admin';
-    // }
+    if (superAdmins.includes(this.email)) {
+        this.role = 'admin';
+    }
 
     if (this.isModified('password')) {
         bcrypt.hash(this.password, 10).then((hash) => {

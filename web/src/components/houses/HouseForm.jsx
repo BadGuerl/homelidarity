@@ -109,20 +109,20 @@ const validations = {
         }
         return message;
     },
-    start: (value) => {
-        let message;
-        if (!value) {
-            message = 'Start date is required';
-        }
-        return message;
-    },
-    end: (value) => {
-        let message;
-        if (!value) {
-            message = 'La fecha de salida es obligatoria';
-        }
-        return message;
-    },
+    // start: (value) => {
+    //     let message;
+    //     if (!value) {
+    //         message = 'Start date is required';
+    //     }
+    //     return message;
+    // },
+    // end: (value) => {
+    //     let message;
+    //     if (!value) {
+    //         message = 'La fecha de salida es obligatoria';
+    //     }
+    //     return message;
+    // },
     latitude: (value) => {
         let message;
         if (!value) {
@@ -156,12 +156,12 @@ function HouseForm({ house: houseToEdit = {} }) {
             address: '',
             city: '',
             postalCode: '',
-            farmacia: '',
-            escuela: '',
-            metro: '',
-            supermercado: '',
-            start: '',
-            end: '',
+            // farmacia: '',
+            // escuela: '',
+            // metro: '',
+            // supermercado: '',
+            // start: '',
+            // end: '',
             latitude: '',
             longitude: '',
             ...houseToEdit
@@ -170,17 +170,17 @@ function HouseForm({ house: houseToEdit = {} }) {
             images: validations.images(houseToEdit.images),
             description: validations.description(houseToEdit.description),
             capacity: validations.capacity(houseToEdit.capacity),
-            enabled: validations.enabled(houseToEdit.enabled),
-            farmacia: validations.farmacia(houseToEdit.farmacia),
-            supermercado: validations.supermercado(houseToEdit.supermercado),
-            metro: validations.metro(houseToEdit.metro),
-            escuela: validations.escuela(houseToEdit.escuela),
-            sponsored: validations.sponsored(houseToEdit.sponsored),
+            // enabled: validations.enabled(houseToEdit.enabled),
+            // farmacia: validations.farmacia(houseToEdit.farmacia),
+            // supermercado: validations.supermercado(houseToEdit.supermercado),
+            // metro: validations.metro(houseToEdit.metro),
+            // escuela: validations.escuela(houseToEdit.escuela),
+            // sponsored: validations.sponsored(houseToEdit.sponsored),
             address: validations.address(houseToEdit.address),
             city: validations.city(houseToEdit.city),
             postalCode: validations.postalCode(houseToEdit.postalCode),
-            start: validations.start(houseToEdit.start),
-            end: validations.end(houseToEdit.end),
+            // start: validations.start(houseToEdit.start),
+            // end: validations.end(houseToEdit.end),
             latitude: validations.latitude(houseToEdit.latitude),
             longitude: validations.longitude(houseToEdit.longitude)
         },
@@ -389,9 +389,7 @@ function HouseForm({ house: houseToEdit = {} }) {
                             onBlur={handleBlur}
                             onChange={handleChange}
                         />
-                        <label className="form-check-label" for="flexSwitchCheckDefault">
-                            Se admiten mascotas
-                        </label>
+                        <label className="form-check-label" for="flexSwitchCheckDefault">Se admiten mascotas</label>
                     </div>
 
                     <div className="mb-3">
@@ -447,7 +445,7 @@ function HouseForm({ house: houseToEdit = {} }) {
 
                     <div className="mt-3">
                         <button type="submit" className="btn btn-secondary" disabled={!isValid()}>
-                            {house.id && <span>Actualizar vivienda</span>}
+                            {/* {house.id && <span>Actualizar vivienda</span>} */}
                             {!house.id && <span>Añadir vivienda</span>}
                         </button>
                     </div>

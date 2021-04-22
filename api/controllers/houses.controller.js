@@ -4,6 +4,13 @@ const House = require('../models/house.model');
 module.exports.list = (req, res, next) => {
 
     const criteria = req.query;
+    if(criteria.end && criteria.end != ''){
+        criteria.end = {$lte: new Date(criteria.end)}
+    } else {
+        delete criteria.end;
+    }
+    console.log(criteria);
+
     House.find(criteria)
         .populate('idHost', '_id name email')
         .then(houses => res.json(houses))
@@ -29,6 +36,10 @@ module.exports.create = (req, res, next) => {
     }
     console.log(location);
     req.body.house = req.user.id;
+
+    if (req.file) {
+        req.body.image = req.file.url
+    }
     
     House.create(req.body)
         .then(house => res.status(201).json(house))
@@ -65,6 +76,11 @@ module.exports.update = (req, res, next) => {
             coordinates: location
         }
     }
+
+    if (req.file) {
+        req.body.image = req.file.url
+    }
+
     // Remove attributes than cant be modified
     delete req.body.idHost;
     delete req.body.id;
@@ -83,13 +99,13 @@ module.exports.update = (req, res, next) => {
         }).catch(next)
 }
 
-module.exports.searchTag = (req, res, next) => {
-    const keyWord = req.body.keyWord;
-    const keyRE = new RegExp(keyWord, "i");
-    Service.find({ $or: [{ title: keyRE }, { nickname: keyRE }, { description: keyRE }] })
-        .populate("host")
-        .then((houses) => {
-            res.render('houses/host', { houses })
-        })
-        .catch(next);
-}
+// module.exports.searchTag = (req, res, next) => {
+//     const keyWord = req.body.keyWord;
+//     const keyRE = new RegExp(keyWord, "i");
+//     Service.find({ $or: [{ title: keyRE }, { nickname: keyRE }, { description: keyRE }] })
+//         .populate("host")
+//         .then((houses) => {
+//             res.render('houses/host', { houses })
+//         })
+//         .catch(next);
+// }

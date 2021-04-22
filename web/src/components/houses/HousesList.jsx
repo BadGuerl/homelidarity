@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import HouseItem from './HouseItem';
-import HousesFilter from './HousesFilter'
+import HousesFilter from './HousesFilter';
+import child from '../../images/child-and-clown.jpg';
+import family from '../../images/family.jpg';
 
 import housesService from '../../services/houses-service';
 import { Fragment } from 'react';
@@ -30,11 +32,6 @@ function HousesList({ minSearchChars }) {
         }
        
         let isUnmounted = false;
-
-        // if (search.length >= minSearchChars || search.length === 0) {
-        //     fetchHouses();
-        //     console.log("HOLA");
-        // }
         
         fetchHouses();
          
@@ -46,8 +43,6 @@ function HousesList({ minSearchChars }) {
 
     const handleSearch = search => {
         //Aqui habria que hacer comprobaciones. Si se pasa capacity en blanco, o es un texto, etc.
-        //Que hacemos con los keywords? Se mantienen? Lo cerramos como valores booleanos en mongo? Si se cambia habra que modificar el model
-        
         //Comprobacion que capacity sea un numero
         if(Number.isNaN(parseInt(search.capacity))){
             delete search.capacity;
@@ -65,34 +60,31 @@ function HousesList({ minSearchChars }) {
                         <HousesFilter className="mb-3" onSearch={handleSearch} loading={loading} />
                     </div>
                 </div>
-                <div className="col-6 my-2">
+                <div className="col-6 mt-2 mb-5">
                     {houses.map(house => (
                         <div key={house.id} className="col mb-4"><HouseItem house={house} /></div>
                     ))}
                 </div>
                 <div className="col-2 my-2">
                     <div className="card bg-light text-secondary">
-                        <h3 className="mx-3">
+                        <h4 className="mx-3">
                             <br/>
+                            <br/>
+                            <img src={family} alt="child"className="ratio ratio-16x9 image-fluid rounded" />
                             <br/>
                             <br/>
                             <br/>
                             Si tienes una casa                            
                             y no le das uso
+                            colabora con nosotros,
+                            tendrás muchas ventajas
                             <br/>
                             <br/>
                             <br/>
-                            colabora con nosotros
+                            <img src={child} alt="child"className="ratio ratio-16x9 image-fluid rounded" />
                             <br/>
                             <br/>
-                            <br/>
-                            y tendras muchas ventajas
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                        </h3>
+                        </h4>
                     </div>
                 </div>
             </div>

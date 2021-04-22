@@ -51,7 +51,7 @@ passport.use('google-auth', new GoogleStrategy({
 
   if (googleId && name && email) {
     User.findOne({ $or: [
-        { email},
+        { email },
         {'social.google': googleId }
       ]})
       .then(user => {

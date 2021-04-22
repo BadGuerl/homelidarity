@@ -1,12 +1,27 @@
 import { useState } from 'react';
+import './houses.css';
 
 function HousesFilter({ className, onSearch, loading }) {
 
-  const [search, setSearch] = useState({});
-  const handleCheckChange = (event) => {
+  const [search, setSearch] = useState({end:''});
+
+  const resetDate = () =>{
+    search.end='';
     setSearch({
-      ...search,
-      [event.target.name]: !search[event.target.name]
+      ...search
+    }) 
+  }
+
+  const handleCheckChange = (event) => {
+    
+    if (!event.target.checked) {
+      delete search[event.target.name];      
+    } else {
+      search[event.target.name]=true;
+    }
+
+    setSearch({
+      ...search
     })
   }
   const handleInputChange = (event) => {
@@ -26,7 +41,15 @@ function HousesFilter({ className, onSearch, loading }) {
 
         <div className="m-3">
           <label htmlFor="end" className="form-label text-secondary">Fecha de entrada</label>
-          <input type="datetime-local" className="form-control" id="end" name="end" onChange={handleInputChange} />
+          <div className="position-relative">
+            <input type="datetime-local" className="form-control" id="end" name="end" onChange={handleInputChange} value={search.end} />
+            {
+              search.end && (
+                <i className="fa fa-times resetDate" onClick={resetDate}></i>
+              )
+            }
+          </div>
+          
         </div>
 
         <div className="m-3">

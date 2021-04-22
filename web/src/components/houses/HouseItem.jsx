@@ -2,6 +2,7 @@ import moment from 'moment';
 import { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthStore';
 import { Link } from 'react-router-dom';
+import './houses.css';
 
 function HouseItem({ house: { id, images, description, capacity, enabled, pet, sponsored, address, city, postalCode, farmacia, supermercado, escuela, metro, idHost, location, start, end } }) {
 
@@ -10,18 +11,18 @@ function HouseItem({ house: { id, images, description, capacity, enabled, pet, s
     return (
         <div className={`card bg-light text-secondary shadow-sm ${user?.id === idHost ? 'border border-left-color border-info rounded' : 'border rounded'}`}>
             <div className="row g-0">
-                <div className="col-md-7">
-                    <Link to={`/houses/${id}`}><img src={images} alt="images" className="image-fluid h-100 rounded" link="/house" /></Link>
-                </div>
-                <div className="col-md-4 text-start ms-4 bg-light">
-                    <div className="card-body">
-
+                <div className="col-xl-7">
+                    <div className="ratio ratio-4x3">
+                        <img src={images} alt="images" className="image-fluid rounded"/>
                         {
                             sponsored && (
-                                <h5 className="card-title text-secondary">
-                                    Vivienda patrocinada</h5>
+                                <div className="sponsored p-1">Vivienda patrocinada</div>
                             )
                         }
+                    </div>
+                </div>
+                <div className="col-xl-5 text-start bg-light">
+                    <div className="card-body" >
 
                         <p className="card-text"><small className="text-danger">Libre a partir del:
                         <i className=""></i> {moment(end).format('llll')}</small></p>
@@ -76,15 +77,11 @@ function HouseItem({ house: { id, images, description, capacity, enabled, pet, s
                                     supermercado</span>
                             )
                         }
-
+                        <Link className="stretched-link" to={`/houses/${id}`} /> 
                     </div>
                 </div>
             </div>
         </div>
-
-        // <div className={`card shadow-sm ${user?.id === idHost ? 'border-info rounded' : 'border-0 rounded-0'}`}>
-        //     
-        // </div>
     )
 }
 
