@@ -54,12 +54,15 @@ function HousesList({ minSearchChars }) {
 
     return (
         <Fragment>
+
             <div className="row row-col-3">
+
                 <div className="col-3 ms-5 my-2">
                     <div className="card bg-light">
                         <HousesFilter className="mb-3" onSearch={handleSearch} loading={loading} />
                     </div>
                 </div>
+                
                 <div className="col-6 mt-2 mb-5">
                     {houses.map(house => (
                         <div key={house.id} className="col mb-4"><HouseItem house={house} /></div>

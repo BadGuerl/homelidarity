@@ -30,10 +30,10 @@ router.get('/authenticate/google', passport.authenticate('google-auth', { scope:
 router.get('/authenticate/google/cb', users.loginWithGoogle);
 
 router.get('/users', users.list); 
-// router.get('/users', secure.isAuthenticated, secure.checkRole('admin'), users.list); 
+router.get('/users', secure.isAuthenticated, secure.checkRole('admin'), users.list); 
 // router.get('/users/:id/users-list', secure.isAuthenticated, secure.checkRole('admin'), users.list); 
 
-router.post('/houses/:houseId/bookings', secure.isAuthenticated, upload.single('image'), booking.create);
+router.post('/houses/:idHouse/booking', secure.isAuthenticated, upload.single('image'), booking.create);
 // router.put('/booking/:id', secure.isAuthenticated, booking.updateBooking);
 
 // router.get('/private', checkRoles('ADMIN'), (req, res) => {

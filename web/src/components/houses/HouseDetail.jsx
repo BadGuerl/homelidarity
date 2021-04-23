@@ -50,70 +50,12 @@ function HouseDetail() {
     }
   }, [history, params]);
 
-  const handleDeleteHouse = async () => {
-    await housesService.remove(house.id);
-    history.push('/houses');
-  }
-
-  const handleClick = () => {
-
-  }
-
-  if (!house) {
-    return null;
-  }
-
-  // const isValid = () => {
-  //   const { errors } = state;
-  //   return !Object.keys(errors).some(error => errors[error]);
-  // }
-
-  const handleBlur = (event) => {
-    const { name } = event.target;
-    setState(state => ({
-      ...state,
-      touch: {
-        ...state.touch,
-        [name]: true
-      }
-    }));
-  }
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setState(state => ({
-      ...state,
-      user: {
-        ...state.user,
-        [name]: value
-      },
-      errors: {
-        ...state.errors,
-        [name]: validations[name] && validations[name](value)
-      }
-    }));
-  }
 
   const { images, description, capacity, pet, enabled, sponsored, address, city, idHost, end, farmacia, supermercado, escuela, metro } = house;
   return (
     <Fragment>
 
       <div className="row row-col-3 justify-content-center">
-        {/* <div className="col-4 mx-5 my-2 d-flex align-items-center">
-          <div className="card bg-light p-4 border-danger">
-            <label className="mt-3 text-danger"><h3>¡Importante!</h3></label>
-            <label htmlFor="formFile" className="form-label my-4 text-secondary"><h4>Para reservar la vivienda,<br />
-            registre el documento que acredita la hospitalización.</h4></label>
-            <input
-              className="form-control mb-3"
-              type="file"
-              id="formFile"
-              onBlur={handleBlur}
-              onChange={handleChange}
-            />
-
-          </div>
-        </div> */}
 
         <div className="col-4 my-2 bg-light text-secondary border rounded">
           <div className="ratio ratio-4x3">
@@ -130,7 +72,7 @@ function HouseDetail() {
               <div className="card-body">
 
                 <p className="card-text"><small className="text-danger">Libre a partir del:
-                        <i className=""></i> {moment(end).format('llll')}</small></p>
+                <i className=""></i> {moment(end).format('llll')}</small></p>
 
                 <p className="card-text">{description}</p>
                 <p className="card-text">Dirección: {address}. {city}</p>
@@ -190,17 +132,18 @@ function HouseDetail() {
                   <h4 className="fw-light mb-2">Admin Area</h4>
                   <div className="btn-group" role="group">
                     <Link className="btn btn-secondary" to={`/houses/${idHost}/edit`}>Actualiza</Link>
-                    <button type="button" className="btn btn-danger" onClick={handleDeleteHouse}>Delete</button>
+                    {/* <button type="button" className="btn btn-danger" onClick={handleDeleteHouse}>Delete</button> */}
                   </div>
                 </div>
               </div>
             )}
 
+          <Link className="btn btn-secondary mt-3" to={`/houses/${house.id}/booking`} >Ir a la reserva</Link>
           </div>
         </div>
 
       </div>
-      <a href="/" className="btn btn-secondary mt-3" onClick={handleClick} type="submit" disabled/*={!isValid()} */ >Reservar</a>
+
 
     </Fragment>
   );

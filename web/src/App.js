@@ -17,6 +17,7 @@ import EditHouse from './screens/EditHouse';
 import HousesList from './components/houses/HousesList';
 import UsersList from './components/users/UsersList';
 import AuthCallback from './screens/AuthCallback'
+import BookingForm from './components/booking/BookingForm';
 
 function App() {
   return (
@@ -33,7 +34,9 @@ function App() {
             <Route exact path="/houses" component={HousesList} />
             <Route exact path="/houses/:id" component={HouseDetail} />
             <PrivateRoute exact path="/houses/:id/edit" component={EditHouse} />
-            <PrivateRoute exact path="/create-house" component={HouseForm} roles={["admin", "editor"]} />
+            <PrivateRoute exact path="/houses/:id/booking" component={BookingForm} />
+            
+            <PrivateRoute exact path="/create-house" component={HouseForm}/* roles={["admin", "editor"]}*/ />
             <PrivateRoute exact path="/users/:id/users-list" component={UsersList} roles={["admin"]} />
             {/* <main className="mt-5 d-flex">
             <div className="col-2 mx-2">
@@ -43,6 +46,7 @@ function App() {
               <div className="sponsor">Banner de sponsors</div>
             </div>
           </main> */}
+          
             <Route exact path="/about" component={About} />
             <Route exact path="/cookies" component={Cookies} />
 

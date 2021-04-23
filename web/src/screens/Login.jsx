@@ -1,11 +1,13 @@
 import LoginForm from '../components/users/LoginForm';
 import { Link } from 'react-router-dom';
+import './login.css';
+
 
 const socialLoginUrl = `${process.env.REACT_APP_API_BASE_URL}/authenticate/google`
 
 function Login() {
   return (
-    <div className="row">
+    <div className="login-card row">
       <div className="col-12 col-sm-4 mx-auto">
         <LoginForm />
         <div className="d-grid gap-2">

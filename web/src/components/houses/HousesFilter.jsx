@@ -43,11 +43,9 @@ function HousesFilter({ className, onSearch, loading }) {
           <label htmlFor="end" className="form-label text-secondary">Fecha de entrada</label>
           <div className="position-relative">
             <input type="datetime-local" className="form-control" id="end" name="end" onChange={handleInputChange} value={search.end} />
-            {
-              search.end && (
+            {search.end && (
                 <i className="fa fa-times resetDate" onClick={resetDate}></i>
-              )
-            }
+              )}
           </div>
           
         </div>

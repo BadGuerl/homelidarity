@@ -32,7 +32,7 @@ function Navbar() {
                         {!isAuthenticated() && (
                             <Fragment>
                                 <li className="nav-item">
-                                    <a className="nav-link text-secondary" href="/login">| Inicia sesión</a>
+                                    <a className="nav-link text-secondary" href="/login" >| Inicia sesión</a>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link text-secondary" href="/register" tabIndex="-1" aria-disabled="true">|  Regístrate</a>

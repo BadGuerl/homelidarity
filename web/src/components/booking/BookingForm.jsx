@@ -1,7 +1,10 @@
-import { isValidElement, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useEffect, useState, useContext, Fragment } from 'react';
+import { useParams, useHistory } from 'react-router';
 import { AuthContext } from '../../contexts/AuthStore';
 import bookingsService from '../../services/bookings-service';
+import { Link } from 'react-router-dom';
+import moment from 'moment';
+import housesService from '../../services/houses-service';
 
 const validations = {
 
@@ -28,21 +31,35 @@ const validations = {
     }
 }
 
-function BookingForm({ booking: bookingToEdit = {} }) {
+function BookingForm() {
 
-    const { user } = useContext(AuthContext);
+    const params = useParams();
     const history = useHistory();
+    const { user } = useContext(AuthContext);
+    const [house,setHouseState] = useState({});
+    useEffect(()=>{
+        async function fetchHouse() {
+            const { id } = params;
+            console.info(`Buscando casa ${id}...`)
+            const house = await housesService.get(id)
+            if (!isUnmounted) {
+                setHouseState(house);
+            }
+        }
+        let isUnmounted = false;
+        fetchHouse();
+
+        return () => {
+        console.info(`Unmounting component...`);
+        isUnmounted = true;
+        }
+    },[history,params]);
+
     const [state, setState] = useState({
         booking: {
             start: '',
             end: '',
-            docImage: '',
-            ...bookingToEdit
-        },
-        errors: {
-            start: validations.start(bookingToEdit.start),
-            end: validations.end(bookingToEdit.end),
-            docImage: validations.docImage(bookingToEdit.docImage)
+            docImage: ''
         },
         touch: {}
     });
@@ -106,24 +123,82 @@ function BookingForm({ booking: bookingToEdit = {} }) {
         return !Object.keys(errors).some(error => errors[error]);
     }
 
-    const { booking, errors, touch } = state;
+    const { booking/*, errors, touch*/ } = state;
+
+    const { images, description, capacity, pet, enabled, sponsored, address, city, /*idHost,*/ end, farmacia, supermercado, escuela, metro } = house;
 
     return (
-        <div className="col-3 ms-5 my-2 d-flex align-items-center">
-          <div className="card bg-light p-4">
-            <label className="mt-3 text-danger"><h3>¡Importante!</h3></label>
-            <label for="formFile" className="form-label my-4 text-secondary"><h4>Para reservar la vivienda,<br />registre el documento que acredita la hospitalización.</h4></label>
-            <input
-              className="form-control mb-3"
-              type="file"
-              id="formFile"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              value={user.docImage}
-            />
+        <Fragment>
 
-          </div>
-        </div>
+            <div className="container">
+                <form className="row card-body justify-content-center" onSubmit={handleSubmit}>
+
+                    <div className="col-5 bg-light">
+                        <div className="ratio ratio-4x3">
+                            <img src={images} alt="images" className="image-fluid rounded" />
+                            {
+                                sponsored && (
+                                    <div className="sponsored p-1">Vivienda patrocinada</div>
+                                )
+                            }
+                        </div>
+
+                        <div className="card-body">
+                            <div className="text-start">
+                                <div className="card-body">
+
+                                    <p className="card-text"><small className="text-danger">Libre a partir del:
+                                        <i className=""></i> {moment(end).format('llll')}</small></p>
+
+                                    <p className="card-text">{description}</p>
+                                    <p className="card-text">Dirección: {address}. {city}</p>
+
+                                    <div className="d-flex flex-row mb-2">
+                                        <span className="badge rounded-pill border border-secondary text-secondary me-2 p-2">
+                                            <i className="fa fa-users me-1"></i>{capacity}</span>
+                                        {enabled && (
+                                            <span className="badge rounded-pill border border-secondary text-secondary me-1">
+                                                Adaptada</span>
+                                        )}
+                                        {pet && (
+                                            <span className="badge rounded-pill border border-secondary text-secondary me-1">
+                                                Mascotas</span>
+                                        )}
+                                    </div>
+                                    {farmacia && (
+                                        <span className="badge rounded-pill border border-secondary text-white bg-secondary me-1">
+                                            farmacia</span>
+                                    )}
+                                    {metro && (
+                                        <span className="badge rounded-pill border border-secondary text-white bg-secondary me-1">
+                                            metro</span>
+                                    )}
+                                    {escuela && (
+                                        <span className="badge rounded-pill border border-secondary text-white bg-secondary me-1">
+                                            escuela</span>
+                                    )}
+                                    {supermercado && (
+                                        <span className="badge rounded-pill border border-secondary text-white bg-secondary me-1 mt-2">
+                                            supermercado</span>
+                                    )}
+                                </div>
+                            </div>
+
+                            <input
+                                className="form-control mb-3"
+                                type="file"
+                                id="formFile"
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                value={user.docImage}
+                            />
+                            <Link className="btn btn-secondary mt-3" to={`/bookings/${booking.id}/booking`} >Reservar</Link>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </Fragment>
     );
 }
 
