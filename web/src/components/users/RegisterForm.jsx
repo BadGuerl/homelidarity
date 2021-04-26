@@ -112,6 +112,7 @@ function RegisterForm() {
         <label htmlFor="formFile" className="form-label"></label>
         <input
           className="form-control"
+          name="avatar"
           type="file"
           id="formFile"
           onBlur={handleBlur}

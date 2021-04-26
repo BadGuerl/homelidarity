@@ -18,6 +18,7 @@ import HousesList from './components/houses/HousesList';
 import UsersList from './components/users/UsersList';
 import AuthCallback from './screens/AuthCallback'
 import BookingForm from './components/booking/BookingForm';
+import BookingsList from './components/booking/BookingsList';
 
 function App() {
   return (
@@ -26,18 +27,19 @@ function App() {
         <AuthStore>
           <Navbar />
           <Switch>
+            <Route exact path="/home" component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/authenticate/google/cb" component={AuthCallback} />
-            <Route exact path="/home" component={Home} />
             <Route exact path="/users" component={UsersList} />
             <Route exact path="/houses" component={HousesList} />
             <Route exact path="/houses/:id" component={HouseDetail} />
             <PrivateRoute exact path="/houses/:id/edit" component={EditHouse} />
             <PrivateRoute exact path="/houses/:id/booking" component={BookingForm} />
+            <PrivateRoute exact path="/bookings" component={BookingsList} />
             
             <PrivateRoute exact path="/create-house" component={HouseForm}/* roles={["admin", "editor"]}*/ />
-            <PrivateRoute exact path="/users/:id/users-list" component={UsersList} roles={["admin"]} />
+            <PrivateRoute exact path="/users-list" component={UsersList} roles={["admin"]} />
             {/* <main className="mt-5 d-flex">
             <div className="col-2 mx-2">
               <HouseForm className="form">Formulario de busqueda de viviendas</HouseForm>

@@ -20,4 +20,5 @@ input[type=text],input[type=datetime-local]{
     width: 40%;
     height: auto;
     line-height: 26px;
+    z-index:10;
 }

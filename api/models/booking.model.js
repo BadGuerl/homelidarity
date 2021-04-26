@@ -49,7 +49,7 @@ const bookingSchema = new Schema({
     type: Date,
     validate: {
       validator: function (value) {
-        return moment(value).isAfter(moment(this.start))
+        return value? moment(value).isAfter(moment(this.start)):true
       },
       message: props => `La fecha de salida no puede ser anterior a la de entrada`
     }

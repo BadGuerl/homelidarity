@@ -9,17 +9,10 @@ const remove = (id) => http.delete(`/bookings/${id}`)
 const update = (booking) => http.put(`/bookings/${booking.id}`, booking)
 
 
-const create = (booking) => {
-  const data = new FormData()
+const create = (booking) => http.post(`/bookings`, booking)
 
-  Object.keys(booking).forEach(key => {
-    data.append(key, booking[key])
-  })
-  
-  http.post(`/booking`, booking)
-}
 
-const service = {
+const bookingService = {
   create,
   update,
   remove,
@@ -27,4 +20,4 @@ const service = {
   get
 }
 
-export default service;
+export default bookingService;

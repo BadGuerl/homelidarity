@@ -2,41 +2,16 @@ import { useEffect, useState, useContext, Fragment } from 'react';
 import { useParams, useHistory } from 'react-router';
 import { AuthContext } from '../../contexts/AuthStore';
 import bookingsService from '../../services/bookings-service';
-import { Link } from 'react-router-dom';
 import moment from 'moment';
 import housesService from '../../services/houses-service';
+import axios from 'axios';
 
-const validations = {
-
-    start: (value) => {
-        let message;
-        if (!value) {
-            message = 'Se requiere fecha de entrada';
-        }
-        return message;
-    },
-    end: (value) => {
-        let message;
-        if (!value) {
-            message = 'Se requiere fecha de salida';
-        }
-        return message;
-    },
-    docImage: (value) => {
-        let message;
-        if (!value) {
-            message = 'Se requiere documento acreditativo';
-        }
-        return message;
-    }
-}
-
-function BookingForm() {
+function BookingForm({ booking: bookingToEdit={}}) {
 
     const params = useParams();
     const history = useHistory();
     const { user } = useContext(AuthContext);
-    const [house,setHouseState] = useState({});
+    const [house,setHouseState] = useState({images:[]});
     useEffect(()=>{
         async function fetchHouse() {
             const { id } = params;
@@ -54,12 +29,36 @@ function BookingForm() {
         isUnmounted = true;
         }
     },[history,params]);
-
+    const validations = {
+        start:(value) => {
+        
+                let message;
+                if (!value) {
+                    message = 'Introduzca una fecha de entrada';
+                }
+                console.log(message);
+                return message;
+        },
+        docImage:(value) => {
+            console.log(value);
+            let message;
+            if (!value) {
+                message = 'Introduzca el documento acreditativo';
+            }
+            console.log(message);
+            return message;
+        },
+    }
     const [state, setState] = useState({
         booking: {
             start: '',
             end: '',
-            docImage: ''
+            docImage: '',
+            ...bookingToEdit
+        },
+        errors:{
+            start: validations.start(bookingToEdit.start),
+            docImage: validations.docImage(bookingToEdit.docImage)
         },
         touch: {}
     });
@@ -69,7 +68,7 @@ function BookingForm() {
         setState(state => {
             return {
                 ...state,
-                event: {
+                booking: {
                     ...state.booking,
                     [name]: value,
                 },
@@ -80,26 +79,30 @@ function BookingForm() {
             }
         });
     }
-
-    const handleBlur = (booking) => {
-        const { name } = booking.target;
-        setState(state => ({
+    const resetDate = () =>{
+        state.booking.start='';
+        setState({
             ...state,
-            touch: {
-                ...state.touch,
-                [name]: true
+            booking: {
+                ...state.booking
+            },
+            errors: {
+                ...state.errors
             }
-        }));
-    }
-
+        }) 
+      }
+   
     const handleSubmit = async (booking) => {
         booking.preventDefault();
 
         if (isValid()) {
             try {
                 const bookingData = state.booking;
+                bookingData.status='Pendiente';
+                bookingData.idHouse=params.id;
+                bookingData.idGuest=user.id;
                 const booking = bookingData.id ? await bookingsService.update(bookingData) : await bookingsService.create(bookingData);
-                history.push(`/bookings/${booking.id}`);
+                history.push(`/bookings/`);
             } catch (error) {
                 const { message, errors } = error.response?.data || error;
 
@@ -117,15 +120,44 @@ function BookingForm() {
             }
         }
     }
+    const handleChangeDoc = (e) => {
 
+        const files = [...e.target.files];
+        
+        const fd = new FormData();
+        fd.append("file", files[0]);
+        fd.append("upload_preset", process.env.CLOUDINARY_PRESET || "a8jfd2ec");
+        fd.append("api_key", process.env.CLOUDINARY_KEY || "322462519218433");
+        fd.append("timestamp", (Date.now() / 1000) | 0);
+        axios.post(process.env.CLOUDINARY_URL || "https://api.cloudinary.com/v1_1/anthillweb/image/upload", fd, {
+            headers: { "X-Requested-With": "XMLHttpRequest" }
+        })
+        .then(response => {
+            const data = response.data;
+            const fileUrl = data.secure_url;
+            
+            setState(state => ({
+                ...state,
+                booking: {
+                    ...state.booking,
+                    docImage:fileUrl
+                },
+                errors: {
+                    ...state.errors,
+                    docImage: validations.docImage && validations.docImage(fileUrl),
+                }
+            }));
+            console.log(state.booking);
+        }) 
+    }
     const isValid = () => {
         const { errors } = state;
         return !Object.keys(errors).some(error => errors[error]);
     }
 
-    const { booking/*, errors, touch*/ } = state;
+    const { booking, errors, touch } = state;
 
-    const { images, description, capacity, pet, enabled, sponsored, address, city, /*idHost,*/ end, farmacia, supermercado, escuela, metro } = house;
+    const { images, description, capacity, pet, enabled, sponsored, address, city, end, farmacia, supermercado, escuela, metro } = house;
 
     return (
         <Fragment>
@@ -133,9 +165,9 @@ function BookingForm() {
             <div className="container">
                 <form className="row card-body justify-content-center" onSubmit={handleSubmit}>
 
-                    <div className="col-5 bg-light">
+                    <div className="col-5 bg-light g-0">
                         <div className="ratio ratio-4x3">
-                            <img src={images} alt="images" className="image-fluid rounded" />
+                            <img src={images[0]} alt="images" className="image-fluid rounded" />
                             {
                                 sponsored && (
                                     <div className="sponsored p-1">Vivienda patrocinada</div>
@@ -183,16 +215,30 @@ function BookingForm() {
                                     )}
                                 </div>
                             </div>
-
-                            <input
-                                className="form-control mb-3"
-                                type="file"
-                                id="formFile"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                value={user.docImage}
-                            />
-                            <Link className="btn btn-secondary mt-3" to={`/bookings/${booking.id}/booking`} >Reservar</Link>
+                            <div className="m-3">
+                                <label htmlFor="start" className="form-label text-secondary">Fecha de entrada</label>
+                                <div className="position-relative">
+                                    <input type="datetime-local" className="form-control" id="start" name="start" onChange={handleChange} value={booking.start} />
+                                    {booking.start && (
+                                        <i className="fa fa-times resetDate" onClick={resetDate}></i>
+                                    )}
+                                </div>
+                            </div>
+                            <div className="m-3">
+                                <label htmlFor="docImage" className="form-label text-secondary">Documento acreditativo</label>
+                                <input
+                                    className="form-control mb-3"
+                                    type="file"
+                                    id="formFile"
+                                    name="docImage"
+                                    onChange={handleChangeDoc}
+                                />
+                            </div>
+                            {/* <Link className="btn btn-secondary mt-3" to={`/bookings`} >Reservar</Link> */}
+                            <button type="submit" className="btn btn-secondary" disabled={!isValid()}>
+                                {/* {house.id && <span>Actualizar vivienda</span>} */}
+                                {!booking.id && <span>Reservar</span>}
+                            </button>
                         </div>
                     </div>
                 </form>

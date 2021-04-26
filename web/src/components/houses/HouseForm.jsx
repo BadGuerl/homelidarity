@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useHistory } from 'react-router';
 import housesService from '../../services/houses-service';
+import { AuthContext } from '../../contexts/AuthStore';
+import axios from 'axios';
 
 const validations = {
     images: (value) => {
@@ -86,7 +88,7 @@ const validations = {
         let message;
         if (!value) {
             message = 'Introduzca la dirección';
-        } else if (value && value.length < 5) {
+        } else if (value && value.length < 4) {
             message = 'La dirección debe tener mínimo 5 caracteres'
         }
         return message;
@@ -104,7 +106,7 @@ const validations = {
         let message;
         if (!value) {
             message = 'Introduzca el código postal';
-        } else if (value && value.length === 5) {
+        } else if (value && value.length === 4) {
             message = 'El código postal debe tener 5 caracteres'
         }
         return message;
@@ -144,15 +146,16 @@ const validations = {
 }
 
 function HouseForm({ house: houseToEdit = {} }) {
-
+    const { user } = useContext(AuthContext);
     const history = useHistory();
     const [state, setState] = useState({
         house: {
-            images: '',
+            images: [],
+            idHost: user.id,
             description: '',
             capacity: '',
-            enabled: '',
-            sponsored: '',
+            // enabled: '',
+            sponsored: false,
             address: '',
             city: '',
             postalCode: '',
@@ -160,14 +163,15 @@ function HouseForm({ house: houseToEdit = {} }) {
             // escuela: '',
             // metro: '',
             // supermercado: '',
-            // start: '',
-            // end: '',
+            // pet:'',
+            start: '',
+            end: '',
             latitude: '',
             longitude: '',
             ...houseToEdit
         },
         errors: {
-            images: validations.images(houseToEdit.images),
+            // images: validations.images(houseToEdit.images),
             description: validations.description(houseToEdit.description),
             capacity: validations.capacity(houseToEdit.capacity),
             // enabled: validations.enabled(houseToEdit.enabled),
@@ -186,21 +190,72 @@ function HouseForm({ house: houseToEdit = {} }) {
         },
         touch: {}
     });
+    const handleCheckBoxes = (event) => {
+        if (!event.target.checked) {
+            state.house[event.target.name] = false;
+        } else {
+            state.house[event.target.name] = true;
+        }
 
-    const handleChange = (house) => {
-        const { name, value } = house.target;
-        setState(state => {
-            return {
+        setState(state => ({
+            ...state,
+            house: {
+                ...state.house
+            },
+            errors: {
+                ...state.errors
+            }
+        }));
+        console.log(state.house);
+    }
+    const handleChange = (event) => {
+
+        const { name, value } = event.target;
+
+        setState(state => ({
+            // return {
+            ...state,
+            house: {
+                ...state.house,
+                [name]: value,
+            },
+            errors: {
+                ...state.errors,
+                [name]: validations[name] && validations[name](value),
+            }
+            // }
+        }));
+
+    }
+    const handleChangeImages = (e) => {
+
+        const files = [...e.target.files];
+        const uploaders = files.map(file => {
+            const fd = new FormData();
+            fd.append("file", file);
+            fd.append("upload_preset", process.env.CLOUDINARY_PRESET || "a8jfd2ec");
+            fd.append("api_key", process.env.CLOUDINARY_KEY || "322462519218433");
+            fd.append("timestamp", (Date.now() / 1000) | 0);
+            return axios.post(process.env.CLOUDINARY_URL || "https://api.cloudinary.com/v1_1/anthillweb/image/upload", fd, {
+                headers: { "X-Requested-With": "XMLHttpRequest" }
+            })
+                .then(response => {
+                    const data = response.data;
+                    const fileUrl = data.secure_url;
+                    state.house.images.push(fileUrl);
+                })
+        });
+        axios.all(uploaders).then(() => {
+            setState(state => ({
                 ...state,
                 house: {
-                    ...state.house,
-                    [name]: value,
+                    ...state.house
                 },
                 errors: {
-                    ...state.errors,
-                    [name]: validations[name] && validations[name](value),
+                    ...state.errors
                 }
-            }
+            }));
+            console.log(state.house);
         });
     }
 
@@ -215,13 +270,13 @@ function HouseForm({ house: houseToEdit = {} }) {
         }));
     }
 
-    const handleSubmit = async (house) => {
-        house.preventDefault();
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
         if (isValid()) {
             try {
                 const houseData = state.house;
-                houseData.location = [houseData.longitude, houseData.latitude];
+                houseData.location = [parseFloat(houseData.longitude), parseFloat(houseData.latitude)];
                 const house = houseData.id ? await housesService.update(houseData) : await housesService.create(houseData);
                 history.push(`/houses/${house.id}`);
             } catch (error) {
@@ -256,42 +311,39 @@ function HouseForm({ house: houseToEdit = {} }) {
     const { house, errors, touch } = state;
 
     return (
-        <div className="container col-5 my-5">
-            <div className="form-check form-switch ms-3 text-start text-secondary mt-3">
-                <h4><input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="flexSwitchCheckDefault"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    onSubmit={handleSubmit}
-                />
-                    <label className="form-check-label" for="flexSwitchCheckDefault">Patrocinada</label></h4>
-            </div>
+        <div className="container col-5 my-3">
+            <form onSubmit={handleSubmit}>
+                <div className="form-check form-switch ms-3 text-start text-secondary mt-3">
+                    <h4><input
+                        name="sponsored"
+                        className="form-check-input"
+                        type="checkbox"
+                        id="flexSwitchCheckDefault"
+                        onChange={handleCheckBoxes}
+                    />
+                        <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Patrocinada</label></h4>
+                </div>
 
-            <div className="mb-2">
-                <label for="formFileMultiple" className="form-label"></label>
-                <input
-                    className={`form-control ${(touch.image && errors.image) ? 'is-invalid' : ''}`}
-                    type="file"
-                    src={house.images}
-                    id="formFileMultiple"
-                    multiple
-                    onError={(house) => house.target.src = 'https://via.placeholder.com/800x400'}
-                    onBlur={handleChange}
-                    onChange={handleChange}
-                    onSubmit={handleSubmit}
-                />
-                <div className="invalid-feedback">{errors.image}</div>
-            </div>
+                <div className="mb-2">
+                    <label htmlFor="formFileMultiple" className="form-label"></label>
+                    <input
+                        className={`form-control ${(touch.images && errors.images) ? 'is-invalid' : ''}`}
+                        type="file"
+                        id="formFileMultiple"
+                        name="images"
+                        multiple
+                        onChange={handleChangeImages}
+                    />
+                    <div className="invalid-feedback">{errors.images}</div>
+                </div>
 
-            <div className="col">
-                <form onSubmit={handleSubmit}>
+                <div className="col">
 
                     <div className="input-group mb-2">
                         <span className="input-group-text"><i className="fa fa-edit fa-fw"></i></span>
                         <textarea
                             name="description"
+                            type="text"
                             className={`form-control ${(touch.description && errors.description) ? 'is-invalid' : ''}`}
                             placeholder="describe la vivienda..."
                             value={house.description}
@@ -304,14 +356,51 @@ function HouseForm({ house: houseToEdit = {} }) {
                     <div className="input-group mb-2">
                         <span className="input-group-text"><i className="fa fa-users fa-fw"></i></span>
                         <input
-                            type="number"
                             name="capacity"
+                            type="number"
                             className={`form-control ${(touch.capacity && errors.capacity) ? 'is-invalid' : ''}`}
                             placeholder="capacidad de la vivienda..."
                             value={house.capacity}
                             onBlur={handleBlur}
                             onChange={handleChange} />
                         <div className="invalid-feedback">{errors.capacity}</div>
+                    </div>
+
+                    <div className="input-group mb-2">
+                        <span className="input-group-text"><i className="fa fa-map-marker"></i></span>
+                        <input
+                            name="address"
+                            type="text"
+                            className={`form-control ${(touch.address && errors.address) ? 'is-invalid' : ''}`}
+                            placeholder="dirección..."
+                            value={house.address}
+                            onBlur={handleBlur}
+                            onChange={handleChange} />
+                        <div className="invalid-feedback">{errors.address}</div>
+
+                        <span className="input-group-text"><i className="fa fa-map-o" aria-hidden="true"></i></span>
+                        <input
+                            name="city"
+                            type="text"
+                            className={`form-control ${(touch.city && errors.city) ? 'is-invalid' : ''}`}
+                            placeholder="ciudad..."
+                            value={house.city}
+                            onBlur={handleBlur}
+                            onChange={handleChange} />
+                        <div className="invalid-feedback">{errors.city}</div>
+                    </div>
+
+                    <div className="input-group mb-2">
+                        <span className="input-group-text"><i className="fa fa-location-arrow" aria-hidden="true"></i></span>
+                        <input
+                            name="postalCode"
+                            type="text"
+                            className={`form-control ${(touch.postalCode && errors.postalCode) ? 'is-invalid' : ''}`}
+                            placeholder="código postal..."
+                            value={house.postalCode}
+                            onBlur={handleBlur}
+                            onChange={handleChange} />
+                        <div className="invalid-feedback">{errors.postalCode}</div>
                     </div>
 
                     <div className="input-group mb-2">
@@ -369,27 +458,28 @@ function HouseForm({ house: houseToEdit = {} }) {
 
                     <div className="form-check form-switch ms-3 text-start text-secondary mt-4">
                         <input
+                            name="enabled"
                             className="form-check-input"
                             type="checkbox"
                             id="flexSwitchCheckDefault"
                             value={house.enabled}
                             onBlur={handleBlur}
-                            onChange={handleChange}
+                            onChange={handleCheckBoxes}
                         />
-                        <label className="form-check-label" for="flexSwitchCheckDefault">Adaptada a movilidad reducida</label>
+                        <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Adaptada a movilidad reducida</label>
                     </div>
 
                     <div className="form-check form-switch ms-3 text-start text-secondary">
                         <input
                             className="form-check-input"
                             type="checkbox"
-                            name="flexSwitchCheckDefault"
-                            id="flexSwitchCheckDefault"
+                            name="pet"
+                            id="pet"
                             value={house.pet}
                             onBlur={handleBlur}
-                            onChange={handleChange}
+                            onChange={handleCheckBoxes}
                         />
-                        <label className="form-check-label" for="flexSwitchCheckDefault">Se admiten mascotas</label>
+                        <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Se admiten mascotas</label>
                     </div>
 
                     <div className="mb-3">
@@ -399,47 +489,51 @@ function HouseForm({ house: houseToEdit = {} }) {
                     <div className="ms-3 text-start text-secondary">
                         <div className="form-check form-switch">
                             <input
+                                name="farmacia"
                                 className="form-check-input"
                                 type="checkbox"
                                 id="flexSwitchCheckDefault"
                                 value={house.farmacia}
                                 onBlur={handleBlur}
-                                onChange={handleChange}
+                                onChange={handleCheckBoxes}
                             />
-                            <label className="form-check-label" for="flexSwitchCheckDefault">Farmacia</label>
+                            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Farmacia</label>
                         </div>
                         <div className="form-check form-switch">
                             <input
+                                name="supermercado"
                                 className="form-check-input"
                                 type="checkbox"
                                 id="flexSwitchCheckDefault"
                                 value={house.supermercado}
                                 onBlur={handleBlur}
-                                onChange={handleChange}
+                                onChange={handleCheckBoxes}
                             />
-                            <label className="form-check-label" for="flexSwitchCheckDefault">Supermercado</label>
+                            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Supermercado</label>
                         </div>
                         <div className="form-check form-switch">
                             <input
+                                name="metro"
                                 className="form-check-input"
                                 type="checkbox"
                                 id="flexSwitchCheckDefault"
                                 value={house.metro}
                                 onBlur={handleBlur}
-                                onChange={handleChange}
+                                onChange={handleCheckBoxes}
                             />
-                            <label className="form-check-label" for="flexSwitchCheckDefault">Metro</label>
+                            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Metro</label>
                         </div>
                         <div className="form-check form-switch">
                             <input
+                                name="escuela"
                                 className="form-check-input"
                                 type="checkbox"
                                 id="flexSwitchCheckDefault"
                                 value={house.escuela}
                                 onBlur={handleBlur}
-                                onChange={handleChange}
+                                onChange={handleCheckBoxes}
                             />
-                            <label className="form-check-label" for="flexSwitchCheckDefault">Escuela</label>
+                            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Escuela</label>
                         </div>
                     </div>
 
@@ -450,8 +544,8 @@ function HouseForm({ house: houseToEdit = {} }) {
                         </button>
                     </div>
 
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     );
 }

@@ -28,26 +28,30 @@ module.exports.get = (req, res, next) => {
 }
 
 module.exports.create = (req, res, next) => {
-    console.log(req.body.location.split(",").map(e => parseFloat(e)));
-    const location = req.body.location.split(",").map(e => parseFloat(e));
-    req.body.location = {
-        type: 'Point',
-        coordinates: location
+    const { location } = req.body;
+    if (location) {
+        req.body.location = {
+            type: 'Point',
+            coordinates: location
+        }
     }
-    console.log(location);
-    req.body.house = req.user.id;
 
-    if (req.file) {
-        req.body.image = req.file.url
-    }
+    // req.body.images=[];
+    // if (req.files) {
+    //     req.files.each((file)=>{
+    //         req.body.image.push(file.url);
+    //     })
+    // }
     
+
     House.create(req.body)
         .then(house => res.status(201).json(house))
         .catch(error => {
-            if (error.errors && error.error['location.coordinates']) {
-                error.errors.location = error.errors['location.coordinates'];
-                delete error.errors['location.coordinates']
-            }
+            console.log("Body enviado ",req.body);
+            // if (error.errors && error.error['location.coordinates']) {
+            //     error.errors.location = error.errors['location.coordinates'];
+            //     delete error.errors['location.coordinates']
+            // }
             next(error);
         })
 }
@@ -98,14 +102,3 @@ module.exports.update = (req, res, next) => {
             }
         }).catch(next)
 }
-
-// module.exports.searchTag = (req, res, next) => {
-//     const keyWord = req.body.keyWord;
-//     const keyRE = new RegExp(keyWord, "i");
-//     Service.find({ $or: [{ title: keyRE }, { nickname: keyRE }, { description: keyRE }] })
-//         .populate("host")
-//         .then((houses) => {
-//             res.render('houses/host', { houses })
-//         })
-//         .catch(next);
-// }

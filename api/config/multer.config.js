@@ -3,9 +3,9 @@ const cloudinary = require('cloudinary');
 const cloudinaryStorage = require('multer-storage-cloudinary');
 
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_NAME,
-  api_key: process.env.CLOUDINARY_KEY,
-  api_secret: process.env.CLOUDINARY_SECRET,
+  cloud_name: process.env.CLOUDINARY_NAME || "anthillweb",
+  api_key: process.env.CLOUDINARY_KEY || "322462519218433",
+  api_secret: process.env.CLOUDINARY_SECRET || "6XV7RuJ80qQaev-0ZfeX1tBIu00",
 });
 
 const storage = new cloudinaryStorage({
@@ -17,6 +17,6 @@ const storage = new cloudinaryStorage({
   }
 });
 
-const uploadCloud = multer({ storage: storage });
+const upload = multer({ storage: storage });
 
-module.exports = uploadCloud;
+module.exports = upload;

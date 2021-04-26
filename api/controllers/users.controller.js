@@ -6,7 +6,8 @@ const mailer = require('../config/mailer.config');
 
 /* Borrar esto cuando churule el compass */
 module.exports.list = (req, res, next) => {
-    User.find({userState:true})
+    const criteria = req.query;
+    User.find(criteria)
         .then(users => res.json(users))
         .catch(next)
 }

@@ -5,6 +5,7 @@ import { AuthContext } from '../../contexts/AuthStore';
 import moment from 'moment';
 
 import housesService from '../../services/houses-service';
+import Carrusel from '../carousel/Carrusel';
 
 const validations = {
   docImage: (value) => {
@@ -22,6 +23,7 @@ function HouseDetail() {
   const history = useHistory();
   const { user } = useContext(AuthContext);
   const [house, setState] = useState({
+    images:[],
     booking: {
       docImage: ''
     },
@@ -57,16 +59,17 @@ function HouseDetail() {
 
       <div className="row row-col-3 justify-content-center">
 
-        <div className="col-4 my-2 bg-light text-secondary border rounded">
+        <div className="col-4 my-2 bg-light text-secondary border rounded g-0">
           <div className="ratio ratio-4x3">
-            <img src={images} alt="images" className="image-fluid rounded" />
+            {/* <img src={images[0]} alt="images" className="image-fluid rounded" /> */}
+            <Carrusel images={images}></Carrusel>
             {
               sponsored && (
                 <div className="sponsored p-1">Vivienda patrocinada</div>
               )
             }
           </div>
-
+          
           <div className="card-body">
             <div className="text-start">
               <div className="card-body">

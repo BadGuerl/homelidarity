@@ -7,23 +7,24 @@ require('../models/user.model')
 
 const houseSchema = new Schema({
     images: {
-        type: [String]
-        // validate: {
-        //     validator: function (value) {
-        //         try {
-        //             const url = new URL(value);
-        //             return url.protocol === 'http:' || url.protocol === 'https:'
-        //         } catch (error) {
-        //             return false;
-        //         }
-        //     },
-        //     message: props => `URL de la imagen no valida`
-        // }
+        type: [String],
+        required: 'Se requieren imagenes de la vivienda',
+        validate: {
+            validator: function (value) {
+                try {
+                    const url = new URL(value);
+                    return url.protocol === 'http:' || url.protocol === 'https:'
+                } catch (error) {
+                    return false;
+                }
+            },
+            message: props => `URL de la imagen no valida`
+        }
     },
     description: {
         type: String,
         required: 'La description es requerida',
-        minLength: [10, 'La descripcion necesita 10 caracteres minimo']
+        minLength: [50, 'La descripcion necesita 50 caracteres minimo']
     },
     capacity: {
         type: Number,

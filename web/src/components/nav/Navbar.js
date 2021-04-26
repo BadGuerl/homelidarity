@@ -40,15 +40,18 @@ function Navbar() {
                             </Fragment>
                         )}
                         {isAuthenticated() && (
-                            <Fragment>                                <li className="nav-item"><NavLink className={`nav-link text-secondary ${user.role === "admin" ? "text-danger" : 'd-none'} `} activeClassName="active" to="/usersList">Zona admin</NavLink></li>
+                            <Fragment>
+                                <li className="nav-item"><NavLink className={`nav-link text-secondary pe-5 ${user.role === "admin" ? "text-danger" : 'd-none'} `} activeClassName="active" to="/users-list">Zona admin</NavLink></li>
 
-                                <li className="nav-item"><Link className="nav-link text-secondary me-5" to="/create-house">¿Tienes una vivienda solidaria?</Link></li>
-                                <li className="nav-item"><NavLink className={`nav-link text-secondary ${user.role === "admin" ? "text-danger" : ''} `} activeClassName="active" to="/profile">Bienvenido/a {user.name}</NavLink></li>
+                                <li className="nav-item"><Link className={`nav-link text-secondary pe-5 ${user.role === "guest" ? "text-secondary" : 'text-danger'} `} to="/create-house">¿Tienes una vivienda solidaria?</Link></li>
+                                <li className="nav-item"><Link className={`nav-link text-secondary pe-5 ${user.role === "guest" ? "text-secondary" : 'text-danger'} `} to="/bookings">Mis reservas</Link></li>
+
+                                <li className="nav-item"><NavLink className={`nav-link text-secondary ps-5${user.role === "admin" ? "text-danger" : ''} `} activeClassName="active" to="/profile">Bienvenido/a {user.name}</NavLink></li>
                                 <li>
-                                    <div className="inline-block" style={{ width: "40px", height: "40px", backgroundImage: `url(${user.avatar})`, borderRadius: "100px", backgroundSize: "cover", backgroundPosition: "center" }}>
+                                    <div className="inline-block " style={{ width: "40px", height: "40px", backgroundImage: `url(${user.avatar})`, borderRadius: "100px", backgroundSize: "cover", backgroundPosition: "center" }}>
                                     </div>
                                 </li>
-                                <li className="nav-item"><button type="submit" className="btn btn-link link-unstyled text-secondary" onClick={handleLogout}><h3><i className="fa fa-sign-out ms-2" ></i></h3></button></li>
+                                <li className="nav-item ps-5"><button type="submit" className="btn btn-link link-unstyled text-secondary" onClick={handleLogout}><h3><i className="fa fa-sign-out ms-2" ></i></h3></button></li>
 
                             </Fragment>
                         )}

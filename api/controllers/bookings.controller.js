@@ -6,105 +6,71 @@ const User = require('../models/user.model');
 
 /* Borrar esto cuando churule el compass*/
 module.exports.list = (req, res, next) => {
+    const id = req.query.id;
+
     Booking.find()
+        .populate('idGuest', '_id name email')
+        .populate({path:'idHouse',populate:{path:'idHost'}})
         .then(booking => res.json(booking))
         .catch(next)
 }
 /* hasta aqui*/
 
-module.exports.create = (req, res, next) => {
-    House.findById(req.body.idHouse)
-        .then(house => {
-
-            // console.log(house.docImage);
-            if (house) {
-
-                if (req.body.docImage) {
-                    Booking.create(req.body)
-                        .then(booking => res.status(201).json(booking))
-                        .catch(error => {
-                            next(error);
-                        })
-                    return booking.create({
-                        status: 'Pendiente',
-                        house: user.idHouse,
-                        guest: user.idGuest
-                    })
-                        .then(booking => {
-                            if (booking) {
-                                res.redirect('/houses')
-                            }
-                        })
-                        .catch(createError(403, 'No se ha podido crear el la reserva'))
-                } else {
-                    next(createError(403, 'No existe ningun documento acreditativo'))
-                }
-            } else {
-                next(createError(404, 'Esta casa no esta disponible'))
-            }
+module.exports.get = (req, res, next) => {
+    Booking.findById(req.params.id)
+        .populate('idGuest', '_id name email')
+        .populate('idHouse')
+        .then(booking => {
+            if (booking) res.json(booking)
+            else next(createError(404, 'Booking not found'))
         })
-        .catch(error => next(error))
-}
-
-
-
-module.exports.updateBooking = (req, res, next) => {
-    const { id } = req.params;
-
-    User.findByIdAndUpdate(id, req.body, { new: false })
-        .then(user => res.status(202).json(user))
         .catch(next)
 }
 
-
-
-
-module.exports.acceptBooking = (req, res, next) => {
-    const bookingId = req.params.id;
-    req.body.status = 'Aceptado';
-    Booking.findByIdAndUpdate(bookingId, { $set: req.body }, { runValidators: true })
-        .then((booking) => {
-            if (booking) {
-                res.redirect('/house');
-            } else {
-                next(createError(404, 'Esta reserva no existe'));
-            }
-        })
-        .catch((error) => {
-            if (error instanceof mongoose.Error.ValidationError) {
-                const booking = req.body;
-                booking.id = req.params.id;
-                res.render('/house', {
-                    errors: error.errors,
-                    booking: booking,
-                });
-            } else {
+module.exports.create = (req, res, next) => {
+    if (req.body.docImage) {
+        Booking.create(req.body)
+            .then(booking => res.status(201).json(booking))
+            .catch(error => {
                 next(error);
-            }
-        });
+            })
+    } else {
+        next(createError(403, 'No existe ningun documento acreditativo'))
+    }
 }
 
-module.exports.cancelBooking = (req, res, next) => {
-    const bookingId = req.params.id;
-    req.body.status = 'Cancelada';
-    Booking.findByIdAndUpdate(bookingId, { $set: req.body }, { runValidators: true })
-        .then((booking) => {
-            if (booking) {
-                res.redirect('/house');
-            } else {
-                next(createError(404, 'Esta reserva no existe'));
+
+
+module.exports.update = (req, res, next) => {
+    const { id } = req.params;
+
+    // Booking.findByIdAndUpdate(id, req.body, { new: false })
+    //     .then(booking => res.status(200).json(booking))
+    //     .catch(next)
+    Booking.findById(id)
+        .then(booking => {
+            if (!booking) next(createError(404, 'booking not found'))
+            else {
+                Object.assign(booking, req.body)
+                return booking.save()
+                    .then(booking => res.json(booking))
             }
         })
-        .catch((error) => {
-            if (error instanceof mongoose.Error.ValidationError) {
-                const booking = req.body;
-                booking.id = req.params.id;
-                res.render('/house', {
-                    errors: error.errors,
-                    booking: booking,
-                });
-            } else {
-                next(error);
-            }
-        });
+}
+
+
+module.exports.delete = (req, res, next) => {
+    const criterial = { _id: req.params.id }
+    if (req.user.role !== 'admin') {
+        criterial.user = req.user.id;
+    }
+
+    Booking.findByIdAndDelete(criterial)
+        .then(booking => {
+            if (!booking) next(createError(404, 'Booking not found'))
+            // else if (booking.host != req.user.id) next(createError(403, 'Only the owner of the house can perform this action'))
+            // else return booking.delete();
+            else return res.status(204).end();
+        })
+        .catch(next)
 }
