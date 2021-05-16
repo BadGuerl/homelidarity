@@ -59,7 +59,7 @@ function HouseDetail() {
 
       <div className="row row-col-3 justify-content-center">
 
-        <div className="col-4 my-2 bg-light text-secondary border rounded g-0">
+        <div className="col-4 bg-light text-secondary border rounded g-0">
           <div className="ratio ratio-4x3">
             {/* <img src={images[0]} alt="images" className="image-fluid rounded" /> */}
             <Carrusel images={images}></Carrusel>
@@ -80,13 +80,14 @@ function HouseDetail() {
                 <p className="card-text">{description}</p>
                 <p className="card-text">Dirección: {address}. {city}</p>
 
-                <div className="d-flex flex-row mb-2">
-                  <span className="badge rounded-pill border border-secondary text-secondary me-2 p-2">
+                <div className="d-flex flex-row">
+                  <span className="badge rounded-pill border border-secondary text-secondary me-2">
                     <i className="fa fa-users me-1"></i>{capacity}</span>
 
                   {
                     enabled && (
-                      <span className="badge rounded-pill border border-secondary text-secondary  me-1">
+                      <span className="badge rounded-pill border border-secondary text-secondary me-1">
+                        <i className="fa fa-wheelchair-alt me-1" aria-hidden="true"></i>
                         Adaptada</span>
                     )
                   }
@@ -94,6 +95,7 @@ function HouseDetail() {
                   {
                     pet && (
                       <span className="badge rounded-pill border border-secondary text-secondary me-1">
+                        <i className="fa fa-paw me-1" aria-hidden="true"></i>
                         Mascotas</span>
                     )
                   }

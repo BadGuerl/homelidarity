@@ -106,9 +106,9 @@ function RegisterForm() {
   return (
     <form className="mt-3 mb-3" onSubmit={handleSubmit}>
 
-      <h3 className="text-secondary m-5">Registrate</h3>
+      <h3 className="text-secondary m-5">Regístrate</h3>
 
-      <div className="mb-3">
+      <div className="input-group mb-3">
         <label htmlFor="formFile" className="form-label"></label>
         <input
           className="form-control"
@@ -117,8 +117,7 @@ function RegisterForm() {
           id="formFile"
           onBlur={handleBlur}
           onChange={handleChange}
-          value={user.avatar}
-        />
+          value={user.avatar} />
         <div className="invalid-feedback">{errors.avatar}</div>
       </div>
 
@@ -128,12 +127,12 @@ function RegisterForm() {
         <input
           type="text"
           name="name"
+          required
           className={`form-control`}
           placeholder="Nombre de usuario"
           onBlur={handleBlur}
           onChange={handleChange}
-          value={user.name}
-        />
+          value={user.name} />
         <div className="invalid-feedback">{errors.name}</div>
       </div>
 
@@ -144,11 +143,11 @@ function RegisterForm() {
           type="text"
           name="email"
           className={`form-control`}
+          required
           placeholder="Email"
           onBlur={handleBlur}
           onChange={handleChange}
-          value={user.email}
-        />
+          value={user.email} />
         <div className="invalid-feedback">{errors.email}</div>
       </div>
 
@@ -159,6 +158,7 @@ function RegisterForm() {
           type="password"
           name="password"
           className={`form-control`}
+          required
           placeholder="Contraseña"
           onBlur={handleBlur}
           onChange={handleChange}

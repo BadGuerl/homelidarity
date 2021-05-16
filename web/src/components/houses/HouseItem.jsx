@@ -7,10 +7,10 @@ import './houses.css';
 function HouseItem({ house: { id, images, description, capacity, enabled, pet, sponsored, address, city, farmacia, supermercado, escuela, metro, idHost, end } }) {
 
     const { user } = useContext(AuthContext);
-    
+
     return (
         <div className={`card bg-light text-secondary shadow-sm `}>
-            <div className={`row g-0 ${user?.id === idHost.id ? 'border-end border-warning border-3 rounded' : 'border rounded'}`}>
+            <div className={`row g-0 ${user?.id === idHost ? 'border-end border-warning border-3 rounded' : 'border rounded'}`}>
                 <div className="col-xl-7">
                     <div className="ratio ratio-4x3">
                         <img src={images[0]} alt="images" className="image-fluid rounded" />
@@ -34,10 +34,12 @@ function HouseItem({ house: { id, images, description, capacity, enabled, pet, s
 
                             {enabled && (
                                 <span className="badge rounded-pill border border-secondary text-secondary  me-1">
+                                    <i className="fa fa-wheelchair-alt me-1" aria-hidden="true"></i>
                                     Adaptada</span>
                             )}
                             {pet && (
                                 <span className="badge rounded-pill border border-secondary text-secondary me-1">
+                                    <i className="fa fa-paw me-1" aria-hidden="true"></i>
                                     Mascotas</span>
                             )}
 

@@ -7,12 +7,12 @@ import caixa from '../images/obrasocial.png';
 
 function About() {
     return (
-        <div className="">
-            <img className="m-5" src={logo} alt="" width="350" href="/" />
-            <p className="text-white mt-3">Homelidarity es una propuesta de La Obra Social "la Caixa" para facilitar la estancia de las familias<br />
+        <div className="login-card">
+            <img className="my-3" src={logo} alt="" width="350" href="/" />
+            <p className="text-secondary mt-3">Homelidarity es una propuesta de La Obra Social "la Caixa" para facilitar la estancia de las familias<br />
             que van a tener a sus hijos hospitalizados, durante largo tiempo, en el hospital infantil de Barcelona.
             </p>
-            <p className="text-white">La finalidad de esta aplicación és acercar las viviendas a las que no se les está dando uso, a las familias<br />
+            <p className="text-secondary">La finalidad de esta aplicación és acercar las viviendas a las que no se les está dando uso, a las familias<br />
             que puedan tener difultades para obtener una en condiciones durante largo tiempo.
             </p>
             <div>
@@ -20,11 +20,11 @@ function About() {
                 <img className="p-1 mt-3 rounded" src={paint} alt="" width="250" href="/" />
                 <img className="p-1 mt-3 rounded" src={family} alt="" width="250" href="/" />
             </div>
-            <p className="mt-5 text-white">También se facilita la posibilidad de hacer donaciones para que estas familias puedan<br />
+            <p className="mt-5 text-secondary">También se facilita la posibilidad de hacer donaciones para que estas familias puedan<br />
             sufragar los gastos ocasionado de vivir lejos de su hogar, y posiblemente, no poder trabajar por atender las<br />
             del menor hospitalizado.
             </p>
-            <img className="m-5 rounded" src={caixa} alt="" width="250" href="/" />
+            <img className="mt-5 rounded" src={caixa} alt="" width="250" href="/" />
 
         </div>
     );

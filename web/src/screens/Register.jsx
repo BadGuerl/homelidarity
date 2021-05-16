@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function Register() {
   return (
-    <div className="row">
+    <div className="login-card row">
       <div className="col-12 col-sm-4 mx-auto">
         <RegisterForm />
         <div className="d-grid gap-2">

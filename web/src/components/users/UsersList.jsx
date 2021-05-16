@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import usersService from "../../services/users-service";
-import './users-list.css'
+// import './users-list.css'
 
 function UsersList() {
 
@@ -28,32 +28,37 @@ function UsersList() {
   console.log(users);
 
   return (
-    <div className="grid container col-10">
-      <div className="row py-5">
-        <div className="col-12 d-flex justify-content-center border-2 bg-secondary text-light">
-          <h2 className="py-2">Lista de usuarios</h2>
-
+    <div className="container col-8">
+      <div className="title bg-secondary p-3 mb-3">
+        <div>
+          <h2 className="text-light">Lista de usuarios</h2>
         </div>
       </div>
 
-      <div className="row">
-
-        <div className="d-flex justify-content-between border border-dark border-1 py-3">
-          <th className="px-3">Nombre</th>
-          <th className="px-3">Email</th>
-          <th className="px-3">Rol</th>
-          <th className="px-3">Estado</th>
-          <th className="px-3">Avatar</th>
-        </div>
+      <div className="card-group">
 
         {users.map(user => (
-          <div key={user.id} className="d-flex border justify-content-between align-items-center border border-dark border-1 py-1">
-            <span>{user.name}</span>
-            <span>{user.email}</span>
-            <span>{user.role}</span>
-            <span className={`${user.userState === true ? "text-secondary" : "d-none"}`}>Activo</span>
-            <span className={`${user.userState === false ? "text-secondary text-danger" : "d-none"}`}>No activo</span>
-            <span className="img-responsive m-2 rounded-2"><img src={user.avatar} alt="avatar" className="avatar" /></span>
+          <div key={user.id} className="usuario col-4 p-1">
+
+            <div className="card mb-3">
+              <div className="row g-0">
+                <div className="col-md-4">
+                  <img src={user.avatar} alt="avatar" className="w-75 mt-3" />
+                </div>
+                <div className="col-md-8">
+                  <div className="card-body">
+                    <h5 className="card-title">{user.name}</h5>
+                    <p className="card-text">{user.email}</p>
+                    <p className="card-text"><small className="text-muted">{user.role}</small></p>
+                  </div>
+                  <div className="card-footer">
+                    <span className={`${user.userState === true ? "text-dark" : "d-none"}`}>Activo</span>
+                    <span className={`${user.userState === false ? "text-secondary text-danger" : "d-none"}`}>No activo</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         ))}
 

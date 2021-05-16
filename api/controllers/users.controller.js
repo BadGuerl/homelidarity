@@ -103,19 +103,6 @@ module.exports.totp = (req, res, next) => {
     next(createError(400, 'TOTP no válido'))
 }
 
-module.exports.totp = (req, res, next) => {
-    if (!req.isAuthenticated()) {
-        return next(createError(401, 'Usuario no autenticado'))
-    }
-
-    if (totp(req.user.totpSecret) === req.body.totp) {
-        req.session.secondFactor = true
-        return res.json(req.user)
-    }
-
-    next(createError(400, 'TOTP no válido'))
-}
-
 module.exports.activate = (req, res, next) => {
     User.findOneAndUpdate(
         { 'verified.token': req.query.token },

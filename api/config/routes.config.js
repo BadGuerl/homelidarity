@@ -31,7 +31,7 @@ router.delete('/houses/:id', secure.isAuthenticated, houses.delete);
 // router.get('/authenticate/google', passport.authenticate('google-auth', { scope: GOOGLE_SCOPES }));
 // router.get('/authenticate/google/cb', users.loginWithGoogle);
 
-// router.get('/users', users.list); 
+
 router.get('/users', secure.isAuthenticated, secure.checkRole('admin'), users.list); 
 router.get('/users/:id/users-list', secure.isAuthenticated, secure.checkRole('admin'), users.list); 
 

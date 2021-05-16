@@ -1,18 +1,18 @@
 import { useEffect, useState, useContext, Fragment } from 'react';
 import { useParams, useHistory } from 'react-router';
 import { AuthContext } from '../../contexts/AuthStore';
-import bookingsService from '../../services/bookings-service';
+// import bookingsService from '../../services/bookings-service';
 import moment from 'moment';
 import housesService from '../../services/houses-service';
 import axios from 'axios';
 
-function BookingForm({ booking: bookingToEdit={}}) {
+function BookingForm({ booking: bookingToEdit = {} }) {
 
     const params = useParams();
     const history = useHistory();
     const { user } = useContext(AuthContext);
-    const [house,setHouseState] = useState({images:[]});
-    useEffect(()=>{
+    const [house, setHouseState] = useState({ images: [] });
+    useEffect(() => {
         async function fetchHouse() {
             const { id } = params;
             console.info(`Buscando casa ${id}...`)
@@ -25,21 +25,21 @@ function BookingForm({ booking: bookingToEdit={}}) {
         fetchHouse();
 
         return () => {
-        console.info(`Unmounting component...`);
-        isUnmounted = true;
+            console.info(`Unmounting component...`);
+            isUnmounted = true;
         }
-    },[history,params]);
+    }, [history, params]);
     const validations = {
-        start:(value) => {
-        
-                let message;
-                if (!value) {
-                    message = 'Introduzca una fecha de entrada';
-                }
-                console.log(message);
-                return message;
+        start: (value) => {
+
+            let message;
+            if (!value) {
+                message = 'Introduzca una fecha de entrada';
+            }
+            console.log(message);
+            return message;
         },
-        docImage:(value) => {
+        docImage: (value) => {
             console.log(value);
             let message;
             if (!value) {
@@ -56,7 +56,7 @@ function BookingForm({ booking: bookingToEdit={}}) {
             docImage: '',
             ...bookingToEdit
         },
-        errors:{
+        errors: {
             start: validations.start(bookingToEdit.start),
             docImage: validations.docImage(bookingToEdit.docImage)
         },
@@ -79,8 +79,8 @@ function BookingForm({ booking: bookingToEdit={}}) {
             }
         });
     }
-    const resetDate = () =>{
-        state.booking.start='';
+    const resetDate = () => {
+        state.booking.start = '';
         setState({
             ...state,
             booking: {
@@ -89,19 +89,19 @@ function BookingForm({ booking: bookingToEdit={}}) {
             errors: {
                 ...state.errors
             }
-        }) 
-      }
-   
+        })
+    }
+
     const handleSubmit = async (booking) => {
         booking.preventDefault();
 
         if (isValid()) {
             try {
                 const bookingData = state.booking;
-                bookingData.status='Pendiente';
-                bookingData.idHouse=params.id;
-                bookingData.idGuest=user.id;
-                const booking = bookingData.id ? await bookingsService.update(bookingData) : await bookingsService.create(bookingData);
+                bookingData.status = 'Pendiente';
+                bookingData.idHouse = params.id;
+                bookingData.idGuest = user.id;
+                // const booking = bookingData.id ? await bookingsService.update(bookingData) : await bookingsService.create(bookingData);
                 history.push(`/bookings/`);
             } catch (error) {
                 const { message, errors } = error.response?.data || error;
@@ -123,7 +123,7 @@ function BookingForm({ booking: bookingToEdit={}}) {
     const handleChangeDoc = (e) => {
 
         const files = [...e.target.files];
-        
+
         const fd = new FormData();
         fd.append("file", files[0]);
         fd.append("upload_preset", process.env.CLOUDINARY_PRESET || "a8jfd2ec");
@@ -132,30 +132,30 @@ function BookingForm({ booking: bookingToEdit={}}) {
         axios.post(process.env.CLOUDINARY_URL || "https://api.cloudinary.com/v1_1/anthillweb/image/upload", fd, {
             headers: { "X-Requested-With": "XMLHttpRequest" }
         })
-        .then(response => {
-            const data = response.data;
-            const fileUrl = data.secure_url;
-            
-            setState(state => ({
-                ...state,
-                booking: {
-                    ...state.booking,
-                    docImage:fileUrl
-                },
-                errors: {
-                    ...state.errors,
-                    docImage: validations.docImage && validations.docImage(fileUrl),
-                }
-            }));
-            console.log(state.booking);
-        }) 
+            .then(response => {
+                const data = response.data;
+                const fileUrl = data.secure_url;
+
+                setState(state => ({
+                    ...state,
+                    booking: {
+                        ...state.booking,
+                        docImage: fileUrl
+                    },
+                    errors: {
+                        ...state.errors,
+                        docImage: validations.docImage && validations.docImage(fileUrl),
+                    }
+                }));
+                console.log(state.booking);
+            })
     }
     const isValid = () => {
         const { errors } = state;
         return !Object.keys(errors).some(error => errors[error]);
     }
 
-    const { booking, errors, touch } = state;
+    const { booking/*, errors, touch*/ } = state;
 
     const { images, description, capacity, pet, enabled, sponsored, address, city, end, farmacia, supermercado, escuela, metro } = house;
 
@@ -185,15 +185,17 @@ function BookingForm({ booking: bookingToEdit={}}) {
                                     <p className="card-text">{description}</p>
                                     <p className="card-text">Dirección: {address}. {city}</p>
 
-                                    <div className="d-flex flex-row mb-2">
-                                        <span className="badge rounded-pill border border-secondary text-secondary me-2 p-2">
+                                    <div className="d-flex flex-row">
+                                        <span className="badge rounded-pill border border-secondary text-secondary me-2">
                                             <i className="fa fa-users me-1"></i>{capacity}</span>
                                         {enabled && (
                                             <span className="badge rounded-pill border border-secondary text-secondary me-1">
+                                                <i className="fa fa-wheelchair-alt me-1" aria-hidden="true"></i>
                                                 Adaptada</span>
                                         )}
                                         {pet && (
                                             <span className="badge rounded-pill border border-secondary text-secondary me-1">
+                                                <i className="fa fa-paw me-1" aria-hidden="true"></i>
                                                 Mascotas</span>
                                         )}
                                     </div>

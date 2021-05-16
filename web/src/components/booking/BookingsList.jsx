@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import bookingsService from "../../services/bookings-service";
 import { AuthContext } from '../../contexts/AuthStore';
-import './bookings-list.css'
+// import './bookings-list.css'
 
 // const moment = require('moment');
 
@@ -13,7 +13,7 @@ function BookingsList() {
     })
     useEffect(() => {
         async function fetchBookings() {
-            const bookings = await bookingsService.list({id:user.id});
+            const bookings = await bookingsService.list({ id: user.id });
             if (!isUnmounted) {
                 setState({
                     bookings: bookings
@@ -26,67 +26,66 @@ function BookingsList() {
             isUnmounted = true;
         }
     }, [user.id]);
-    const handleApprove = async (booking)=>{
+    const handleApprove = async (booking) => {
         const updatedBooking = {
-            id:booking.id,
-            status:'Aceptado'
+            id: booking.id,
+            status: 'Aceptado'
         }
-       await bookingsService.update(updatedBooking);
-        
+        await bookingsService.update(updatedBooking);
+
     };
-    const handleDenegate = async (booking)=>{
+    const handleDenegate = async (booking) => {
         const updatedBooking = {
-            id:booking.id,
-            status:'Cancelado'
+            id: booking.id,
+            status: 'Cancelado'
         }
-       await bookingsService.update(updatedBooking);
+        await bookingsService.update(updatedBooking);
     };
-    
+
     const { bookings } = state;
     console.log(bookings);
     return (
-        <div className="grid container col-10">
-            <div className="row py-5">
-                <div className="col-12 d-flex justify-content-center border-2 bg-secondary text-light">
-                    <h2 className="py-2">Listado de reservas</h2>
+        <div className="container login-card col-8">
+            <div className="title bg-secondary p-3 mb-3">
+                <div>
+                    <h2 className="text-light">Listado de reservas</h2>
                 </div>
             </div>
-            <div className="row">
-                <table className="table">
-                    <thead className="border border-dark">
-                        <tr>
-                            <th>Estado</th>
-                            <th>Entrada</th>
-                            <th>Salida</th>
-                            <th>Nombre del usuario</th>
-                            <th width="25%">Documento acreditativo</th>
-                            <th width="20%">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {bookings.map(booking => (
-                        <tr key={booking.id} className="border border-dark">
-                            <td>{booking.status}</td>
-                            <td>{booking.start}</td>
-                            <td>{booking.end}</td>
-                            <td>{booking.idGuest.name}</td>
-                            <td><img className="img-fluid" alt="docimage" src={booking.docImage} /></td>
-                            <td>
-                                
-                                {
-                                    (booking.idHouse.idHost.id === user.id && booking.status==='Pendiente') && (
-                                        <div>
-                                            <button className="btn btn-success m-2" onClick={()=>handleApprove(booking)}>Aprobar</button>
-                                            <button className="btn btn-danger m-2" onClick={()=>handleDenegate(booking)}>Denegar</button>
-                                        </div>
-                                        
-                                    )
-                                }
-                            </td>
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>
+
+            <div className="card-group">
+
+                {bookings.map(booking => (
+                    <div key={booking.id} className="col-4 p-1">
+
+                        <div class="card mb-3">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src={booking.docImage} alt="docImage" className="w-75 mt-3" />
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{booking.idGuest.name}</h5>
+                                        <p class="card-text">{booking.start}</p>
+                                        <p class="card-text">{booking.end}</p>
+                                        {
+                                            (booking.idHouse.idHost === user.id && booking.status === 'Pendiente') && (
+                                                <div>
+                                                    <button className="btn btn-success m-2" onClick={() => handleApprove(booking)}>Aprobar</button>
+                                                    <button className="btn btn-danger m-2" onClick={() => handleDenegate(booking)}>Denegar</button>
+                                                </div>
+                                            )
+                                        }
+                                    </div>
+                                    <div className="card-footer">
+                                        <p class="card-text">{booking.status}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                ))}
+
             </div>
         </div>
     )

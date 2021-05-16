@@ -1,7 +1,32 @@
-.grid{
-    min-height: 75vh;
+.title{
+    padding: 1em;
+    border-style: solid;
+    border-width: 1px;
+    border-color: gray;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1em;
+}
+
+.tabla{
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.usuario{
+    display: flex;
+    justify-content: space-between;
+    border-style: solid;
+    border-width: 1px;
+    border-color: gray;
+    border-radius: 5px;
+    box-shadow: 2px;
+    margin: 0.3em;
 }
 
 .avatar{
-    width: 50px;
+    width: 20%;
+    border-radius: 3px;
 }

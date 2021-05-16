@@ -6,8 +6,6 @@ const get = (id) => http.get(`/houses/${id}`)
 
 const create = (house) => http.post(`/houses`, house)
 
-
-
 const remove = (id) => http.delete(`/houses/${id}`)
 
 const update = (house) => http.put(`/houses/${house.id}`, house)

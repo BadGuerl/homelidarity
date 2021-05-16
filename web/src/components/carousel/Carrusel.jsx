@@ -12,7 +12,7 @@ export class Carrusel extends Component {
                 <Carousel fade style={{height:"100%"}}>
                     {
                             photos.map((photo,index)=>
-                                <Carousel.Item interval={3000} key={index} style={{
+                                <Carousel.Item interval={4000} key={index} style={{
                                     backgroundImage:`url(${photo})`,
                                     backgroundSize:"cover",
                                     backgroundRepeat:"no-repeat",

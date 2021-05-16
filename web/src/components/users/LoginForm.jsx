@@ -65,7 +65,7 @@ function LoginForm() {
         <div className="invalid-feedback">{errors.email}</div>
       </div>
 
-      <div className="input-group mb-3">
+      <div className="input-group mb-4">
         <span className="input-group-text"><i className="fa fa-lock fa-fw"></i></span>
         <input
           type="password"

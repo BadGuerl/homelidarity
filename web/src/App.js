@@ -1,22 +1,23 @@
 import { Route, BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
 import React from 'react';
 import './App.css';
-import Navbar from './components/nav/Navbar';
-import Footer from './components/footer/Footer'
-import HouseForm from './components/houses/HouseForm';
-import Home from './components/houses/HousesList';
+import Error from './screens/Error';
 import About from './screens/About';
 import Cookies from './screens/Cookies';
-import HouseDetail from './components/houses/HouseDetail';
 import Login from './screens/Login';
 import Register from './screens/Register';
 import AuthStore from './contexts/AuthStore';
-import PrivateRoute from './guards/PrivateRoute';
-import Error from './screens/Error';
-import EditHouse from './screens/EditHouse';
-import HousesList from './components/houses/HousesList';
-import UsersList from './components/users/UsersList';
 import AuthCallback from './screens/AuthCallback'
+import UsersList from './components/users/UsersList';
+import UserForm from './components/users/UserForm';
+import PrivateRoute from './guards/PrivateRoute';
+import Navbar from './components/nav/Navbar';
+import Footer from './components/footer/Footer'
+import Home from './components/houses/HousesList';
+import HousesList from './components/houses/HousesList';
+import HouseForm from './components/houses/HouseForm';
+import HouseDetail from './components/houses/HouseDetail';
+import EditHouse from './screens/EditHouse';
 import BookingForm from './components/booking/BookingForm';
 import BookingsList from './components/booking/BookingsList';
 
@@ -40,6 +41,7 @@ function App() {
             
             <PrivateRoute exact path="/create-house" component={HouseForm}/* roles={["admin", "editor"]}*/ />
             <PrivateRoute exact path="/users-list" component={UsersList} roles={["admin"]} />
+            <PrivateRoute exact path="/profile" component={UserForm} /> 
             {/* <main className="mt-5 d-flex">
             <div className="col-2 mx-2">
               <HouseForm className="form">Formulario de busqueda de viviendas</HouseForm>

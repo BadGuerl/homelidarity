@@ -154,16 +154,10 @@ function HouseForm({ house: houseToEdit = {} }) {
             idHost: user.id,
             description: '',
             capacity: '',
-            // enabled: '',
             sponsored: false,
             address: '',
             city: '',
             postalCode: '',
-            // farmacia: '',
-            // escuela: '',
-            // metro: '',
-            // supermercado: '',
-            // pet:'',
             start: '',
             end: '',
             latitude: '',
@@ -171,25 +165,17 @@ function HouseForm({ house: houseToEdit = {} }) {
             ...houseToEdit
         },
         errors: {
-            // images: validations.images(houseToEdit.images),
             description: validations.description(houseToEdit.description),
             capacity: validations.capacity(houseToEdit.capacity),
-            // enabled: validations.enabled(houseToEdit.enabled),
-            // farmacia: validations.farmacia(houseToEdit.farmacia),
-            // supermercado: validations.supermercado(houseToEdit.supermercado),
-            // metro: validations.metro(houseToEdit.metro),
-            // escuela: validations.escuela(houseToEdit.escuela),
-            // sponsored: validations.sponsored(houseToEdit.sponsored),
             address: validations.address(houseToEdit.address),
             city: validations.city(houseToEdit.city),
             postalCode: validations.postalCode(houseToEdit.postalCode),
-            // start: validations.start(houseToEdit.start),
-            // end: validations.end(houseToEdit.end),
             latitude: validations.latitude(houseToEdit.latitude),
             longitude: validations.longitude(houseToEdit.longitude)
         },
         touch: {}
     });
+    
     const handleCheckBoxes = (event) => {
         if (!event.target.checked) {
             state.house[event.target.name] = false;

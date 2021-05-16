@@ -1,5 +1,7 @@
 import http from './base-api-service';
 
+export const socialLoginUrl = `${process.env.REACT_APP_API_BASE_URL}/authenticate/google`
+
 export const profile = () => http.get('/users/me')
 
 export const list = (search) => http.get('/users', { params:  search  })
