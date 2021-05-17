@@ -26,9 +26,9 @@ module.exports.get = (req, res, next) => {
 
 module.exports.create = (req, res, next) => {
 
-    if (req.file) {
-        req.body.image = req.file.url
-    }
+    // if (req.file) {
+    //     req.body.image = req.file.url
+    // }
 
     User.findOne({ email: req.body.email })
         .then(user => {

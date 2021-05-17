@@ -109,19 +109,6 @@ function RegisterForm() {
       <h3 className="text-secondary m-5">Regístrate</h3>
 
       <div className="input-group mb-3">
-        <label htmlFor="formFile" className="form-label"></label>
-        <input
-          className="form-control"
-          name="avatar"
-          type="file"
-          id="formFile"
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={user.avatar} />
-        <div className="invalid-feedback">{errors.avatar}</div>
-      </div>
-
-      <div className="input-group mb-3">
         <span className="input-group-text"><i className="fa fa-user fa-fw"></i></span>
         {/* <input type="text" name="name" className={`form-control ${touch.name && errors.name ? 'is-invalid' : ''}`} */}
         <input

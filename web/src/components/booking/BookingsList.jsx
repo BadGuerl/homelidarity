@@ -13,8 +13,9 @@ function BookingsList() {
     })
     useEffect(() => {
         async function fetchBookings() {
-            const bookings = await bookingsService.list({ id: user.id });
+            const bookings = await bookingsService.list();
             if (!isUnmounted) {
+                console.log(bookings);
                 setState({
                     bookings: bookings
                 })
@@ -55,20 +56,21 @@ function BookingsList() {
             <div className="card-group">
 
                 {bookings.map(booking => (
-                    <div key={booking.id} className="col-4 p-1">
+                    <div key={booking.id} className={`col-4 p-1 ${(booking.idHouse.idHost.id === user.id || booking.idGuest.id === user.id || user.role === 'admin')?"d-block":"d-none"}`}>
 
-                        <div class="card mb-3">
-                            <div class="row g-0">
-                                <div class="col-md-4">
+                        <div className="card mb-3">
+                            <div className="row g-0">
+                                <div className="col-md-4">
                                     <img src={booking.docImage} alt="docImage" className="w-75 mt-3" />
                                 </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{booking.idGuest.name}</h5>
-                                        <p class="card-text">{booking.start}</p>
-                                        <p class="card-text">{booking.end}</p>
+                                <div className="col-md-8">
+                                    <div className="card-body">
+                                        <h5 className="card-title">G: {booking.idGuest.name}</h5>
+                                        <h5 className="card-title">H: {booking.idHouse.idHost.name}</h5>
+                                        <p className="card-text">{booking.start}</p>
+                                        <p className="card-text">{booking.end}</p>
                                         {
-                                            (booking.idHouse.idHost === user.id && booking.status === 'Pendiente') && (
+                                            ((booking.idHouse.idHost.id === user.id || user.role === 'admin') && booking.status === 'Pendiente') && (
                                                 <div>
                                                     <button className="btn btn-success m-2" onClick={() => handleApprove(booking)}>Aprobar</button>
                                                     <button className="btn btn-danger m-2" onClick={() => handleDenegate(booking)}>Denegar</button>
@@ -77,7 +79,7 @@ function BookingsList() {
                                         }
                                     </div>
                                     <div className="card-footer">
-                                        <p class="card-text">{booking.status}</p>
+                                        <p className="card-text">{booking.status}</p>
                                     </div>
                                 </div>
                             </div>

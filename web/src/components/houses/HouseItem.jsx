@@ -10,7 +10,7 @@ function HouseItem({ house: { id, images, description, capacity, enabled, pet, s
 
     return (
         <div className={`card bg-light text-secondary shadow-sm `}>
-            <div className={`row g-0 ${user?.id === idHost ? 'border-end border-warning border-3 rounded' : 'border rounded'}`}>
+            <div className={`row g-0 ${user?.id === idHost.id ? 'border-end border-warning border-3 rounded' : 'border rounded'}`}>
                 <div className="col-xl-7">
                     <div className="ratio ratio-4x3">
                         <img src={images[0]} alt="images" className="image-fluid rounded" />

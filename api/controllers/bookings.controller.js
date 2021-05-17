@@ -6,12 +6,14 @@ const User = require('../models/user.model');
 
 /* Borrar esto cuando churule el compass*/
 module.exports.list = (req, res, next) => {
-    const id = req.query.id;
+   
 
     Booking.find()
         .populate('idGuest', '_id name email')
         .populate({path:'idHouse',populate:{path:'idHost'}})
-        .then(booking => res.json(booking))
+        .then(booking =>{
+            res.json(booking);
+        })
         .catch(next)
 }
 /* hasta aqui*/

@@ -5,24 +5,22 @@ function UserForm() {
 
     const { user, isAuthenticated/*, onUserChange*/ } = useContext(AuthContext);
     return (
-        <div className="login-card">
+        <div className="login-card mt-4">
             {isAuthenticated() &&
                 <Fragment>
-                    <div className="container">
-                        <div class="card mb-3">
-                            <div class="row g-0">
-                                <div class="col-md-4">
-                                    <img src={user.avatar} alt="avatar" className="w-100" />
+                    <h3 className="text-warning border-bottom pb-5">Edita tu perfil</h3>
+                    <div className="container col-md-7 mt-5">
+                        <div className="card">
+                            <div className="row g-0">
+                                <div className="col-md-5">
+                                    <img src={user.avatar} alt="avatar" className="avatar w-100" />
                                 </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{user.name}</h5>
-                                        <p class="card-text">{user.email}</p>
-                                        <p class="card-text"><small class="text-muted">{user.role}</small></p>
+                                <div className="col-md-7">
+                                    <div className="card-body">
+                                        <h4 className="name card-title mt-4">{user.name}</h4>
+                                        <p className="email card-text mt-4">{user.email}</p>
+                                        <button className="btn btn-warning"> Editar </button>
                                     </div>
-                                </div>
-                                <div className="card-footer">
-                                    <button className="btn btn-warning m-2"> Actualizar perfil </button>
                                 </div>
                             </div>
                         </div>

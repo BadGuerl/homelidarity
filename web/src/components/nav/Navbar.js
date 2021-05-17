@@ -39,12 +39,13 @@ function Navbar() {
                         )}
                         {isAuthenticated() && (
                             <Fragment>
-                                <li className="nav-item"><NavLink className={`nav-link text-secondary pe-1 ${user.role === "admin" ? "text-warning" : 'd-none'} `} activeClassName="active" to="/users-list">Zona admin  |</NavLink></li>
-
-                                <li className="nav-item"><Link className={`nav-link text-secondary pe-1 ${user.role === "guest" ? "text-secondary" : 'text-warning'} `} to="/create-house">¿Tienes una vivienda solidaria?  |</Link></li>
-                                <li className="nav-item"><Link className={`nav-link text-secondary pe-1 ${user.role === "guest" ? "text-secondary" : 'text-warning'} `} to="/bookings">Mis reservas  |</Link></li>
-
-                                <li className="nav-item"><NavLink className={`nav-link text-secondary ps-2${user.role === "admin" ? "text-warning" : ''} `} activeClassName="active" to="/profile">Bienvenido/a {user.name}</NavLink></li>
+                                <li className="nav-item"><NavLink className={`nav-link text-secondary pe-1 ${user.role === "admin" ? "text-danger" : 'd-none'} `} activeClassName="active" to="/users-list">Zona admin</NavLink></li>
+                                <li className="nav-item mx-2 text-secondary mt-2"> | </li>
+                                <li className="nav-item"><Link className={`nav-link text-secondary pe-1 ${user.role === "guest" ? "text-secondary" : 'text-danger'} `} to="/create-house">¿Tienes una vivienda solidaria?</Link></li>
+                                <li className="nav-item mx-2 text-secondary mt-2"> | </li>
+                                <li className="nav-item"><Link className={`nav-link text-secondary pe-1 ${user.role === "guest" ? "text-secondary" : 'text-danger'} `} to="/bookings">Mis reservas</Link></li>
+                                <li className="nav-item mx-2 text-secondary mt-2"> | </li>
+                                <li className="nav-item"><NavLink className={`nav-link text-secondary ps-2 ${user.role === "admin" ? "text-danger" : ''} `} activeClassName="active" to="/profile">Bienvenido/a {user.name}</NavLink></li>
                                 <li>
                                     <div className="inline-block " style={{ width: "40px", height: "40px", backgroundImage: `url(${user.avatar})`, borderRadius: "100px", backgroundSize: "cover", backgroundPosition: "center" }}>
                                     </div>

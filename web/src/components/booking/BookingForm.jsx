@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext, Fragment } from 'react';
 import { useParams, useHistory } from 'react-router';
 import { AuthContext } from '../../contexts/AuthStore';
-// import bookingsService from '../../services/bookings-service';
+import bookingsService from '../../services/bookings-service';
 import moment from 'moment';
 import housesService from '../../services/houses-service';
 import axios from 'axios';
@@ -101,7 +101,7 @@ function BookingForm({ booking: bookingToEdit = {} }) {
                 bookingData.status = 'Pendiente';
                 bookingData.idHouse = params.id;
                 bookingData.idGuest = user.id;
-                // const booking = bookingData.id ? await bookingsService.update(bookingData) : await bookingsService.create(bookingData);
+                const booking = bookingData.id ? await bookingsService.update(bookingData) : await bookingsService.create(bookingData);
                 history.push(`/bookings/`);
             } catch (error) {
                 const { message, errors } = error.response?.data || error;

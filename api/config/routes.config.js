@@ -16,7 +16,9 @@ router.get('/activate', users.activate);
 router.get('/register', upload.single('image'), users.register);
 router.post('/logout', secure.isAuthenticated, users.logout);
 
-router.post('/users', upload.single('image'), users.create);
+// 
+// router.post('/users', upload.single('image'), users.create);
+router.post('/users', users.create);
 router.get('/users/:id', secure.isAuthenticated, users.get);
 router.delete('/users/:id', secure.isAuthenticated, users.delete);
 router.patch('/users/:id', secure.isAuthenticated, users.update);
