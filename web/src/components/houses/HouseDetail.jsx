@@ -56,97 +56,99 @@ function HouseDetail() {
   const { images, description, capacity, pet, enabled, sponsored, address, city, idHost, end, farmacia, supermercado, escuela, metro } = house;
   return (
     <Fragment>
+      <div className="container">
 
-      <div className="row row-col-3 justify-content-center">
+        <div className="row justify-content-center">
 
-        <div className="col-4 bg-light text-secondary border rounded g-0">
-          <div className="ratio ratio-4x3">
-            {/* <img src={images[0]} alt="images" className="image-fluid rounded" /> */}
-            <Carrusel images={images}></Carrusel>
-            {
-              sponsored && (
-                <div className="sponsored p-1">Vivienda patrocinada</div>
-              )
-            }
-          </div>
-          
-          <div className="card-body">
-            <div className="text-start">
-              <div className="card-body">
-
-                <p className="card-text"><small className="text-danger">Libre a partir del:
-                <i className=""></i> {moment(end).format('llll')}</small></p>
-
-                <p className="card-text">{description}</p>
-                <p className="card-text">Dirección: {address}. {city}</p>
-
-                <div className="d-flex flex-row">
-                  <span className="badge rounded-pill border border-secondary text-secondary me-2">
-                    <i className="fa fa-users me-1"></i>{capacity}</span>
-
-                  {
-                    enabled && (
-                      <span className="badge rounded-pill border border-secondary text-secondary me-1">
-                        <i className="fa fa-wheelchair-alt me-1" aria-hidden="true"></i>
-                        Adaptada</span>
-                    )
-                  }
-
-                  {
-                    pet && (
-                      <span className="badge rounded-pill border border-secondary text-secondary me-1">
-                        <i className="fa fa-paw me-1" aria-hidden="true"></i>
-                        Mascotas</span>
-                    )
-                  }
-                </div>
-                {
-                  farmacia && (
-                    <span className="badge rounded-pill border border-secondary text-white bg-secondary me-1">
-                      farmacia</span>
-                  )
-                }
-
-                {
-                  metro && (
-                    <span className="badge rounded-pill border border-secondary text-white bg-secondary me-1">
-                      metro</span>
-                  )
-                }
-
-                {
-                  escuela && (
-                    <span className="badge rounded-pill border border-secondary text-white bg-secondary me-1">
-                      escuela</span>
-                  )
-                }
-
-                {
-                  supermercado && (
-                    <span className="badge rounded-pill border border-secondary text-white bg-secondary me-1 mt-2">
-                      supermercado</span>
-                  )
-                }
-
-              </div>
+          <div className="col-5 bg-light text-secondary border rounded g-0">
+            <div className="ratio ratio-4x3">
+              {/* <img src={images[0]} alt="images" className="image-fluid rounded" /> */}
+              <Carrusel images={images}></Carrusel>
+              {
+                sponsored && (
+                  <div className="sponsored p-1">Vivienda patrocinada</div>
+                )
+              }
             </div>
+            
+            <div className="card-body">
+              <div className="text-start">
+                <div className="card-body">
 
-            {user?.id === house.idHost && (
-              <div className="col my-3 text-center">
-                <div className="alert alert-secondary" role="alert">
-                  <h4 className="fw-light mb-2">Admin Area</h4>
-                  <div className="btn-group" role="group">
-                    <Link className="btn btn-secondary" to={`/houses/${idHost}/edit`}>Actualiza</Link>
-                    {/* <button type="button" className="btn btn-danger" onClick={handleDeleteHouse}>Delete</button> */}
+                  <p className="card-text"><small className="text-danger">Libre a partir del:
+                  <i className="me-1"></i> {moment(end).format('DD-MM-YYYY')}</small></p>
+
+                  <p className="card-text">{description}</p>
+                  <p className="card-text">Dirección: {address}. {city}</p>
+
+                  <div className="d-flex flex-row">
+                    <span className="badge rounded-pill border border-secondary text-secondary me-2">
+                      <i className="fa fa-users me-1"></i>{capacity}</span>
+
+                    {
+                      enabled && (
+                        <span className="badge rounded-pill border border-secondary text-secondary me-1">
+                          <i className="fa fa-wheelchair-alt me-1" aria-hidden="true"></i>
+                          Adaptada</span>
+                      )
+                    }
+
+                    {
+                      pet && (
+                        <span className="badge rounded-pill border border-secondary text-secondary me-1">
+                          <i className="fa fa-paw me-1" aria-hidden="true"></i>
+                          Mascotas</span>
+                      )
+                    }
+                  </div>
+                  {
+                    farmacia && (
+                      <span className="badge rounded-pill border border-secondary text-white bg-secondary me-1">
+                        farmacia</span>
+                    )
+                  }
+
+                  {
+                    metro && (
+                      <span className="badge rounded-pill border border-secondary text-white bg-secondary me-1">
+                        metro</span>
+                    )
+                  }
+
+                  {
+                    escuela && (
+                      <span className="badge rounded-pill border border-secondary text-white bg-secondary me-1">
+                        escuela</span>
+                    )
+                  }
+
+                  {
+                    supermercado && (
+                      <span className="badge rounded-pill border border-secondary text-white bg-secondary me-1 mt-2">
+                        supermercado</span>
+                    )
+                  }
+
+                </div>
+              </div>
+
+              {user?.id === house.idHost && (
+                <div className="col my-3 text-center">
+                  <div className="alert alert-secondary" role="alert">
+                    <h4 className="fw-light mb-2">Admin Area</h4>
+                    <div className="btn-group" role="group">
+                      <Link className="btn btn-secondary" to={`/houses/${idHost}/edit`}>Actualiza</Link>
+                      {/* <button type="button" className="btn btn-danger" onClick={handleDeleteHouse}>Delete</button> */}
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
 
-          <Link className="btn btn-secondary mt-3" to={`/houses/${house.id}/booking`} >Ir a la reserva</Link>
+            <Link className="btn btn-secondary mt-3" to={`/houses/${house.id}/booking`} >Ir a la reserva</Link>
+            </div>
           </div>
-        </div>
 
+        </div>
       </div>
 
 

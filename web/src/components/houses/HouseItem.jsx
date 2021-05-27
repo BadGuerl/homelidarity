@@ -9,7 +9,7 @@ function HouseItem({ house: { id, images, description, capacity, enabled, pet, s
     const { user } = useContext(AuthContext);
 
     return (
-        <div className={`card bg-light text-secondary shadow-sm `}>
+        <div className={`cardtext-secondary shadow-sm `}>
             <div className={`row g-0 ${user?.id === idHost.id ? 'border-end border-warning border-3 rounded' : 'border rounded'}`}>
                 <div className="col-xl-7">
                     <div className="ratio ratio-4x3">

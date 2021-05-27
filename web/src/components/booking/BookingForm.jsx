@@ -180,7 +180,7 @@ function BookingForm({ booking: bookingToEdit = {} }) {
                                 <div className="card-body">
 
                                     <p className="card-text"><small className="text-danger">Libre a partir del:
-                                        <i className=""></i> {moment(end).format('llll')}</small></p>
+                                        <i className="me-1"></i> {moment(end).format('DD-MM-YYYY')}</small></p>
 
                                     <p className="card-text">{description}</p>
                                     <p className="card-text">Dirección: {address}. {city}</p>

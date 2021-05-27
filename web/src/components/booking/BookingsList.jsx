@@ -3,7 +3,7 @@ import bookingsService from "../../services/bookings-service";
 import { AuthContext } from '../../contexts/AuthStore';
 // import './bookings-list.css'
 
-// const moment = require('moment');
+import moment from 'moment';
 
 function BookingsList() {
     const { user } = useContext(AuthContext);
@@ -33,7 +33,10 @@ function BookingsList() {
             status: 'Aceptado'
         }
         await bookingsService.update(updatedBooking);
-
+        const bookings = await bookingsService.list();
+        setState({
+            bookings: bookings
+        })
     };
     const handleDenegate = async (booking) => {
         const updatedBooking = {
@@ -41,6 +44,10 @@ function BookingsList() {
             status: 'Cancelado'
         }
         await bookingsService.update(updatedBooking);
+        const bookings = await bookingsService.list();
+        setState({
+            bookings: bookings
+        })
     };
 
     const { bookings } = state;
@@ -61,14 +68,22 @@ function BookingsList() {
                         <div className="card mb-3">
                             <div className="row g-0">
                                 <div className="col-md-4">
-                                    <img src={booking.docImage} alt="docImage" className="w-75 mt-3" />
+                                    <a href={booking.docImage} target="_blank" rel="noreferrer">
+                                        <img src={booking.docImage} alt="docImage" className="w-75 mt-3" />
+                                    </a>
                                 </div>
                                 <div className="col-md-8">
-                                    <div className="card-body">
-                                        <h5 className="card-title">G: {booking.idGuest.name}</h5>
-                                        <h5 className="card-title">H: {booking.idHouse.idHost.name}</h5>
-                                        <p className="card-text">{booking.start}</p>
-                                        <p className="card-text">{booking.end}</p>
+                                    <div className="card-body text-start">
+                                        <h6 className="card-subtitle mb-2">
+                                            <span className="badge bg-warning text-white">Propietario</span>
+                                        </h6>
+                                        <h5 className="card-title mb-4">{booking.idHouse.idHost.name}</h5>
+                                        <h6 className="card-subtitle mb-2">
+                                            <span className="badge bg-info text-white">Solicitante</span>
+                                        </h6>
+                                        <h5 className="card-title">{booking.idGuest.name}</h5>
+                                        <p className="card-text">{booking.start && moment(booking.start).format('DD-MM-YYYY')}</p>
+                                        <p className="card-text">{booking.end && moment(booking.end).format('DD-MM-YYYY')}</p>
                                         {
                                             ((booking.idHouse.idHost.id === user.id || user.role === 'admin') && booking.status === 'Pendiente') && (
                                                 <div>

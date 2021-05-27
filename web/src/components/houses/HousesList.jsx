@@ -54,31 +54,31 @@ function HousesList({ minSearchChars }) {
 
     return (
         <Fragment>
-
-            <div className="row row-col-3">
-
-                <div className="col-3 ms-5 my-2">
-                    <div className="card bg-light">
-                        <HousesFilter className="mb-3" onSearch={handleSearch} loading={loading} />
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-3 ms-5 my-2">
+                        <div className="card bg-light">
+                            <HousesFilter className="mb-3" onSearch={handleSearch} loading={loading} />
+                        </div>
                     </div>
-                </div>
 
-                <div className="col-6 mt-2">
-                    {houses.map(house => (
-                        <div key={house.id} className="col mb-4"><HouseItem house={house} /></div>
-                    ))}
-                </div>
-                <div className="col-2 my-2">
-                    <div className="card bg-light text-secondary">
+                    <div className="col-6 mt-2">
+                        {houses.map(house => (
+                            <div key={house.id} className="col mb-4"><HouseItem house={house} /></div>
+                        ))}
+                    </div>
+                    <div className="col-2 my-2">
+                        <div className="card bg-light text-secondary">
 
-                        <img src={family} alt="child" className="ratio ratio-16x9 image-fluid mb-4" />
+                            <img src={family} alt="child" className="ratio ratio-16x9 image-fluid mb-4" />
 
-                        <p>Si tienes una casa y no le das uso colabora con nosotros, tendrás muchas ventajas.</p>
-                        <img src={child} alt="child" className="ratio ratio-16x9 image-fluid my-3" />
+                            <p>Si tienes una casa y no le das uso colabora con nosotros, tendrás muchas ventajas.</p>
+                            <img src={child} alt="child" className="ratio ratio-16x9 image-fluid my-3" />
 
-                        <p className="mt-2">O también puedes hacer una donación para los gastos de la vivienda con un simple Bizum al</p>
-                        <p><i className="fa fa-whatsapp me-2 mb-3"></i>555 666 777</p>
+                            <p className="mt-2">O también puedes hacer una donación para los gastos de la vivienda con un simple Bizum al</p>
+                            <p><i className="fa fa-whatsapp me-2 mb-3"></i>555 666 777</p>
 
+                        </div>
                     </div>
                 </div>
             </div>

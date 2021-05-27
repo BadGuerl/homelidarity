@@ -13,6 +13,8 @@ export const register = (user) => http.post('/users', user)
 export const logout = () => http.post('/logout')
 
 const userService = {
+    
+    socialLoginUrl,
     profile,
     login,
     register,

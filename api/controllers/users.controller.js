@@ -132,3 +132,13 @@ module.exports.loginWithGoogle = (req, res, next) => {
 
     passportController(req, res, next);
 }
+
+module.exports.profile = async (req, res, next) => {
+    const { email } = req.user;
+    const user = await User.findOne({ email })
+    if (!user) return next(createError(404, 'User not found'))
+
+    return res.status(200).json({
+        user,
+    });
+}

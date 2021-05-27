@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import usersService from "../../services/users-service";
+import noAvatar from "../../images/avatar.png";
 // import './users-list.css'
 
 function UsersList() {
@@ -28,7 +29,7 @@ function UsersList() {
   console.log(users);
 
   return (
-    <div className="container col-8">
+    <div className="container col-8 login-card">
       <div className="title bg-secondary p-3 mb-3">
         <div>
           <h2 className="text-light">Lista de usuarios</h2>
@@ -43,7 +44,7 @@ function UsersList() {
             <div className="card mb-3">
               <div className="row g-0">
                 <div className="col-md-4">
-                  <img src={user.avatar} alt="avatar" className="w-75 mt-3" />
+                  <img src={user.avatar || noAvatar}  alt="avatar" className="w-75 mt-3" />
                 </div>
                 <div className="col-md-8">
                   <div className="card-body">

@@ -10,25 +10,25 @@ const validations = {
   name: (value) => {
     let message;
     if (!value) {
-      message = 'An user name is required';
+      message = 'El nombre del usuario es requerido';
     }
     return message;
   },
   email: (value) => {
     let message;
     if (!value) {
-      message = 'A valid email is required';
+      message = 'Se requiere un email válido';
     } else if (!EMAIL_PATTERN.test(value)) {
-      message = 'the email is invalid';
+      message = 'El email no es válido';
     }
     return message;
   },
   password: (value) => {
     let message;
     if (!value) {
-      message = 'A valid password is required';
+      message = 'Se requiere una contraseña válida';
     } else if (!PASSWORD_PATTERN.test(value)) {
-      message = 'the password is invalid';
+      message = 'La contraseña no es válida';
     }
     return message;
   }
