@@ -27,7 +27,7 @@
     "totp-generator": "^0.0.9"
   },
   "name": "api",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Homelidarity API",
   "main": "app.js",
   "scripts": {
