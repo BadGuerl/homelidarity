@@ -1,4 +1,5 @@
 const express = require('express');
+const createError = require('http-errors');
 const router = express.Router();
 const secure = require('../middlewares/secure.middleware');
 const passport = require('passport');
@@ -50,5 +51,10 @@ router.delete('/bookings/:id', secure.isAuthenticated, bookings.delete);
 // router.get('/booking', booking.list);
 
 router.post('/totp', users.totp)
+
+/** Handle Errors */
+// router.use((req, res, next) => {
+//     next(createError(404, 'Route not found'));
+//   });
 
 module.exports = router;

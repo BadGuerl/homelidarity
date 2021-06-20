@@ -1,7 +1,6 @@
 require('dotenv').config();
 
 const mongoose = require('mongoose');
-const createError = require('http-errors');
 const logger = require('morgan');
 const express = require('express');
 const passport = require('passport');
@@ -12,6 +11,8 @@ const cors = require('./config/cors.config');
 const session = require('./config/session.config');
 
 const app = express();
+
+// app.use(express.static(`${__dirname}/react-app`))
 
 /** Middlewares */
 app.use(express.json());
@@ -25,9 +26,8 @@ app.use(passport.session());
 const router = require('./config/routes.config');
 app.use('/api', router);
 
-/** Handle Errors */
-app.use((req, res, next) => {
-  next(createError(404, 'Route not found'));
+app.get('/*', (req, res) => {
+  res.sendFile(`${__dirname}/react-app/index.html`);
 });
 
 app.use((error, req, res, next) => {
