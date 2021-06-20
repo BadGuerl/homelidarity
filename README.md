@@ -10,7 +10,7 @@
 
 ![form_reserva](https://user-images.githubusercontent.com/69985189/122676529-cc920a80-d1de-11eb-82b0-dca1a76caa99.png)
 ![list_reserva](https://user-images.githubusercontent.com/69985189/122676623-2266b280-d1df-11eb-97a1-d8a3d1ce7f06.png)
-![image](https://user-images.githubusercontent.com/69985189/122672906-35bd5200-d1ce-11eb-8d0f-4bfa0a5ab667.png)
+![add_home](https://user-images.githubusercontent.com/69985189/122676710-783b5a80-d1df-11eb-979a-32ac121dd761.png)
 
 :large_blue_circle: Cualquier persona o entidad podrá aportar su vivienda, y controlar cuando estará disponible.
 
