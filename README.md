@@ -14,6 +14,7 @@
 
 :large_blue_circle: Cualquier persona o entidad podrá aportar su vivienda, y controlar cuando estará disponible.
 
+<br>
 
 :red_circle: DETALLES TÉCNICOS:
 
@@ -33,6 +34,7 @@ En la aplicación se han utilizado las tecnologías MongoDB para la base de dato
 :warning: Ahora estoy trabajando en Docker para gestinar la aplicación y posteriormente desplegarla en Heroku.
 
 
+<br>
 
 Espero que te guste.
 Siéntete libre de ofrecerme algún consejo de mejora o aportación, o simplemente de felicitarme por mi maravilloso trabajo. GRACIAS	:bangbang: :hearts:
