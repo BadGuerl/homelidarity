@@ -24,8 +24,8 @@ DETALLES TÉCNICOS:
     -npm install
     -npm start
     
-    Y ya tendrás la app en tu servidor local.
+Y ya tendrás la app en tu servidor local.
    
 En la aplicación se han utilizado las tecnologías MongoDB para la base de datos, Express como framework de Node, y React.
 
-Ahora estoy trabajando en Docker para gestinar la aplicación y posteriormente desplegarla en Heroku.
+<i class="fa fa-pencil" aria-hidden="true"></i> Ahora estoy trabajando en Docker para gestinar la aplicación y posteriormente desplegarla en Heroku.
