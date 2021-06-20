@@ -8,7 +8,7 @@
 
 :large_blue_circle: En esta aplicación se podrá hacer la búsqueda y reserva de la vivienda que mas se acerque a nuestras necesidades, realizando la búsqueda tanto por fecha de entrada como por características de la misma, o servicios cercanos. Para la confirmación de la reserva será obligatorio introducir un documento acreditativo de la situación de la persona solicitante, para la comprobación por parte del propietario de la casa, que podrá comprobar desde el panel del listado de reservas.
 
-![image](https://user-images.githubusercontent.com/69985189/122672857-f0992000-d1cd-11eb-979d-d281ec7c470a.png)
+![form_reserva](https://user-images.githubusercontent.com/69985189/122676529-cc920a80-d1de-11eb-82b0-dca1a76caa99.png)
 ![image](https://user-images.githubusercontent.com/69985189/122672872-06a6e080-d1ce-11eb-9466-f8051a1ec041.png)
 ![image](https://user-images.githubusercontent.com/69985189/122672906-35bd5200-d1ce-11eb-8d0f-4bfa0a5ab667.png)
 
