@@ -14,3 +14,18 @@ En esta aplicación se podrá hacer la búsqueda y reserva de la vivienda que ma
 
 Cualquier persona o entidad podrá aportar su vivienda, y controlar cuando estará disponible.
 
+DETALLES TÉCNICOS:
+1-Para iniciar el proyecto en tu servidor local, primero clona el proyecto desde Github. Luego, accede a la carpeta api y ejecuta los comandos:
+    -npm install
+    -npm run seeds
+    -npm run dev
+    
+2-Para iniciar el front end, accede a la carpeta web y ejecuta:
+    -npm install
+    -npm start
+    
+    Y ya tendrás la app en tu servidor local.
+   
+En la aplicación se han utilizado las tecnologías MongoDB para la base de datos, Express como framework de Node, y React.
+
+Ahora estoy trabajando en Docker para gestinar la aplicación y posteriormente desplegarla en Heroku.
