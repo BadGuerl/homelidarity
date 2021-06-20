@@ -1,6 +1,6 @@
 # homelidarity
 
-:rocket::rocket::rocket: Proyecto final de <span style="color: blue">#Ironhack.</span>
+:rocket::rocket::rocket: Proyecto final de #Ironhack.(&#x1F499;):
 
 :large_blue_circle: Englobado en la Agenda 2030, y con beca de CaixaBank, el proyecto HOMELIDARITY consta de una aplicación en la que, familias usuarias del Hospital Infantil de Barcelona podrán hacer uso de viviendas solidarias, con el fin de que su estancia sea lo menos traumática posible. Esta aplicación nace para cubrir posibles necesidades de viviendas solidarias a colectivos mas desfavorecidos, acercando la posibilidad de proporcionar una estancia en un momento complicado de la vida, en principio enfocada al hospital, pero ampliable a víctimas de Viogen, personas mayores solas, etc.
 
@@ -16,24 +16,26 @@
 
 
 :red_circle: DETALLES TÉCNICOS:
-1-Para iniciar el proyecto en tu servidor local, primero clona el proyecto desde Github. Luego, accede a la carpeta api y ejecuta los comandos:
+
+1 - Para iniciar el proyecto en tu servidor local, primero clona el proyecto desde Github. Luego, accede a la carpeta api y ejecuta los comandos:
     -npm install
     -npm run seeds
     -npm run dev
     
-2-Para iniciar el front end, accede a la carpeta web y ejecuta:
+2 - Para iniciar el front end, accede a la carpeta web y ejecuta:
     -npm install
     -npm start
     
 Y ya tendrás la app en tu servidor local. :wink:
+
    
 En la aplicación se han utilizado las tecnologías MongoDB para la base de datos, Express como framework de Node, y React. :atom_symbol:
-
 :warning: Ahora estoy trabajando en Docker para gestinar la aplicación y posteriormente desplegarla en Heroku.
+
+
 
 Espero que te guste.
 Siéntete libre de ofrecerme algún consejo de mejora o aportación, o simplemente de felicitarme por mi maravilloso trabajo. GRACIAS	:bangbang: :hearts:
-
 
 Saludos.
 BadGuerl :female_sign:
