@@ -1,6 +1,6 @@
 # homelidarity
 
-:rocket::rocket::rocket: Proyecto final de #Ironhack.
+:rocket::rocket::rocket: Proyecto final de <span style="color: blue">#Ironhack.</span>
 
 :large_blue_circle: Englobado en la Agenda 2030, y con beca de CaixaBank, el proyecto HOMELIDARITY consta de una aplicación en la que, familias usuarias del Hospital Infantil de Barcelona podrán hacer uso de viviendas solidarias, con el fin de que su estancia sea lo menos traumática posible. Esta aplicación nace para cubrir posibles necesidades de viviendas solidarias a colectivos mas desfavorecidos, acercando la posibilidad de proporcionar una estancia en un momento complicado de la vida, en principio enfocada al hospital, pero ampliable a víctimas de Viogen, personas mayores solas, etc.
 
@@ -37,3 +37,5 @@ Siéntete libre de ofrecerme algún consejo de mejora o aportación, o simplemen
 
 Saludos.
 BadGuerl :female_sign:
+
+https://www.linkedin.com/in/badguerl/
