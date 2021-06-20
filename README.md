@@ -28,4 +28,7 @@ Y ya tendrás la app en tu servidor local.
    
 En la aplicación se han utilizado las tecnologías MongoDB para la base de datos, Express como framework de Node, y React.
 
-<i class="fa fa-pencil" aria-hidden="true"></i> Ahora estoy trabajando en Docker para gestinar la aplicación y posteriormente desplegarla en Heroku.
+Ahora estoy trabajando en Docker para gestinar la aplicación y posteriormente desplegarla en Heroku.
+
+Espero que te guste.
+Siéntete libre de ofrecerme algún consejo de mejora o aportación, o simplemente de felicitarme por mi maravilloso trabajo. GRACIAS :hearts:
