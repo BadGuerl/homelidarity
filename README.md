@@ -1,4 +1,4 @@
-<div align="center">
+<div align="center" mb-4>
 <h1>HOMELIDARITY</h1>
 
 :rocket::rocket::rocket: Proyecto final de #Ironhack&#x1F499;
