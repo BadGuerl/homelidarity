@@ -46,4 +46,4 @@ Siéntete libre de ofrecerme algún consejo de mejora o aportación, o simplemen
 Saludos.
 BadGuerl :female_sign:
 
-https://www.linkedin.com/in/badguerl/
+<div align="end">https://www.linkedin.com/in/badguerl/</div>
