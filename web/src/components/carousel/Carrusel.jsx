@@ -23,8 +23,6 @@ export class Carrusel extends Component {
                                 </Carousel.Item>
                             )
                         }
-                    
-                    
                 </Carousel>
             </div>
         )

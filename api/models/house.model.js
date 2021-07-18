@@ -7,7 +7,8 @@ require('../models/user.model')
 
 const houseSchema = new Schema({
     images: {
-        type: [String]
+        type: [String],
+        // required: 'Se requieren imagenes de la vivienda',
         // validate: {
         //     validator: function (value) {
         //         try {

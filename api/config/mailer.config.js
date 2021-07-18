@@ -48,7 +48,6 @@ module.exports.sendValidationEmail = (email, activationToken, name) => {
             <a href="${appUrl}/activate?token=${activationToken}" 
             style="padding: 10px 20px; color: white; background-color: orange; border-radius: 5px">Click aquí</a>
             `
-
     })
     .then(() => {
         console.log('email sent!');

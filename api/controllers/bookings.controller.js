@@ -4,10 +4,8 @@ const House = require('../models/house.model');
 const Booking = require('../models/booking.model');
 const User = require('../models/user.model');
 
-/* Borrar esto cuando churule el compass*/
 module.exports.list = (req, res, next) => {
    
-
     Booking.find()
         .populate('idGuest', '_id name email')
         .populate({path:'idHouse',populate:{path:'idHost'}})
@@ -16,7 +14,6 @@ module.exports.list = (req, res, next) => {
         })
         .catch(next)
 }
-/* hasta aqui*/
 
 module.exports.get = (req, res, next) => {
     Booking.findById(req.params.id)
@@ -41,8 +38,6 @@ module.exports.create = (req, res, next) => {
     }
 }
 
-
-
 module.exports.update = (req, res, next) => {
     const { id } = req.params;
 
@@ -59,7 +54,6 @@ module.exports.update = (req, res, next) => {
             }
         })
 }
-
 
 module.exports.delete = (req, res, next) => {
     const criterial = { _id: req.params.id }
