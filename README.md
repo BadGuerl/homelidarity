@@ -43,8 +43,8 @@ En la aplicación se han utilizado las tecnologías MongoDB para la base de dato
 Espero que te guste.
 Siéntete libre de ofrecerme algún consejo de mejora o aportación, o simplemente de felicitarme por mi maravilloso trabajo. GRACIAS	:bangbang: :hearts:
 
-<div align="end"> Saludos.
+<div align="center"> Saludos.
 <br>
-BadGuerl :female_sign:
+BadGuerl :female_sign:</div>
 
-https://www.linkedin.com/in/badguerl/</div>
+<div align="end">https://www.linkedin.com/in/badguerl/</div>
