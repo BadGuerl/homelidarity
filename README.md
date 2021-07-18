@@ -44,6 +44,7 @@ Espero que te guste.
 Siéntete libre de ofrecerme algún consejo de mejora o aportación, o simplemente de felicitarme por mi maravilloso trabajo. GRACIAS	:bangbang: :hearts:
 
 <div align="end"> Saludos.
+<br>
 BadGuerl :female_sign:
 
 https://www.linkedin.com/in/badguerl/</div>
