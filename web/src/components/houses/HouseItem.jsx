@@ -9,7 +9,7 @@ function HouseItem({ house: { id, images, description, capacity, enabled, pet, s
     const { user } = useContext(AuthContext);
 
     return (
-        <div className={`cardtext-secondary shadow-sm `}>
+        <div className={`card text-secondary shadow-sm`}>
             <div className={`row g-0 ${user?.id === idHost.id ? 'border-end border-warning border-3 rounded' : 'border rounded'}`}>
                 <div className="col-xl-7">
                     <div className="ratio ratio-4x3">
@@ -23,44 +23,45 @@ function HouseItem({ house: { id, images, description, capacity, enabled, pet, s
                     <div className="card-body" >
 
                         <p className="card-text"><small className="text-danger">Libre a partir del:
-                        <i className=""></i> {moment(end).format('llll')}</small></p>
+                            <i className=""></i> {moment(end).format('llll')}</small></p>
 
                         <p className="card-text">{description}</p>
-                        <p className="card-text">Dirección: {address}. {city}</p>
+                        <p className="card-text mb-5">Dirección: {address}. {city}</p>
 
-                        <div className="d-flex flex-row mb-2">
-                            <span className="badge rounded-pill border border-secondary text-secondary me-1">
-                                <i className="fa fa-users me-1"></i>{capacity}</span>
+                        <div className="d-flex flex-row mb-2 justify-content-center">
+                            <span className="badge rounded-pill border border-secondary text-secondary me-2">
+                                <i className="fa fa-users me-2"></i>{capacity}</span>
 
                             {enabled && (
-                                <span className="badge rounded-pill border border-secondary text-secondary  me-1">
-                                    <i className="fa fa-wheelchair-alt me-1" aria-hidden="true"></i>
+                                <span className="badge rounded-pill border border-secondary text-secondary  me-2">
+                                    <i className="fa fa-wheelchair-alt me-2" aria-hidden="true"></i>
                                     Adaptada</span>
                             )}
                             {pet && (
-                                <span className="badge rounded-pill border border-secondary text-secondary me-1">
-                                    <i className="fa fa-paw me-1" aria-hidden="true"></i>
+                                <span className="badge rounded-pill border border-secondary text-secondary me-2">
+                                    <i className="fa fa-paw me-2" aria-hidden="true"></i>
                                     Mascotas</span>
                             )}
 
                         </div>
-
-                        {farmacia && (
-                            <span className="badge rounded-pill border border-secondary text-white bg-secondary me-1">
-                                farmacia</span>
-                        )}
-                        {metro && (
-                            <span className="badge rounded-pill border border-secondary text-white bg-secondary me-1">
-                                metro</span>
-                        )}
-                        {escuela && (
-                            <span className="badge rounded-pill border border-secondary text-white bg-secondary me-1">
-                                escuela</span>
-                        )}
-                        {supermercado && (
-                            <span className="badge rounded-pill border border-secondary text-white bg-secondary me-1 mt-2">
-                                supermercado</span>
-                        )}
+                        <div className="d-flex justify-content-center">
+                            {farmacia && (
+                                <span className="badge rounded-pill border border-secondary text-white bg-secondary me-2">
+                                    farmacia</span>
+                            )}
+                            {metro && (
+                                <span className="badge rounded-pill border border-secondary text-white bg-secondary me-2">
+                                    metro</span>
+                            )}
+                            {escuela && (
+                                <span className="badge rounded-pill border border-secondary text-white bg-secondary me-2">
+                                    escuela</span>
+                            )}
+                            {supermercado && (
+                                <span className="badge rounded-pill border border-secondary text-white bg-secondary me-2">
+                                    supermercado</span>
+                            )}
+                        </div>
 
                         <Link className="stretched-link" to={`/houses/${id}`} />
                     </div>

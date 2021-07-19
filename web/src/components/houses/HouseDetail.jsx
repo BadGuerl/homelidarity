@@ -23,7 +23,7 @@ function HouseDetail() {
   const history = useHistory();
   const { user } = useContext(AuthContext);
   const [house, setState] = useState({
-    images:[],
+    images: [],
     booking: {
       docImage: ''
     },
@@ -57,9 +57,7 @@ function HouseDetail() {
   return (
     <Fragment>
       <div className="container">
-
         <div className="row justify-content-center">
-
           <div className="col-5 bg-light text-secondary border rounded g-0">
             <div className="ratio ratio-4x3">
               {/* <img src={images[0]} alt="images" className="image-fluid rounded" /> */}
@@ -70,13 +68,13 @@ function HouseDetail() {
                 )
               }
             </div>
-            
+
             <div className="card-body">
               <div className="text-start">
                 <div className="card-body">
 
                   <p className="card-text"><small className="text-danger">Libre a partir del:
-                  <i className="me-1"></i> {moment(end).format('DD-MM-YYYY')}</small></p>
+                    <i className="me-1"></i> {moment(end).format('DD-MM-YYYY')}</small></p>
 
                   <p className="card-text">{description}</p>
                   <p className="card-text">Dirección: {address}. {city}</p>
@@ -144,13 +142,11 @@ function HouseDetail() {
                 </div>
               )}
 
-            <Link className="btn btn-secondary mt-3" to={`/houses/${house.id}/booking`} >Ir a la reserva</Link>
+              <Link className="btn btn-secondary mt-3" to={`/houses/${house.id}/booking`} >Ir a la reserva</Link>
             </div>
           </div>
-
         </div>
       </div>
-
 
     </Fragment>
   );
