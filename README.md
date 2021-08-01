@@ -45,6 +45,7 @@ Siéntete libre de ofrecerme algún consejo de mejora o aportación, o simplemen
 
 <div align="center"> Saludos.
 <br>
-BadGuerl :female_sign:</div>
+BadGuerl :female_sign:</div>ç
 
+<div align="end">https://homelidarity.herokuapp.com/home</div>
 <div align="end">https://www.linkedin.com/in/badguerl/</div>
