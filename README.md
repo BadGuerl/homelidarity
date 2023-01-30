@@ -23,8 +23,8 @@ HOMELIDARITY es una aplicación que se enmarca en la Agenda 2030 y cuenta con la
 :red_circle: DETALLES TÉCNICOS:
 
 1. Para iniciar el proyecto en tu servidor local, sigue estos pasos:
- - Clona el proyecto desde Github.
- - Accede a la carpeta api y ejecuta los siguientes comandos:
+- Clona el proyecto desde Github.
+- Accede a la carpeta api y ejecuta los siguientes comandos:
  <ul>
   <li>npm install
   <li>npm run seeds
@@ -32,7 +32,7 @@ HOMELIDARITY es una aplicación que se enmarca en la Agenda 2030 y cuenta con la
  </ul>
   
 2. Para iniciar el front end:
- - Accede a la carpeta web y ejecuta:
+- Accede a la carpeta web y ejecuta:
 <ul>
   <li>npm install
   <li>npm start
